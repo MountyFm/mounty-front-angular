@@ -1,0 +1,33 @@
+.navbar {
+    background-color: #8DEDE7;
+    padding: 2%;
+    border-radius: 10px;
+    position: relative;
+}
+
+.navbar a {
+    margin-left: 3%;
+    color: #424242;
+    font-weight: bold;
+    text-decoration: none;
+    font-family: Baloo;
+    font-size: 18px;
+}
+
+.navbar #login {
+    float: right;
+    padding-right: 3%;
+}
+
+.navbar a:hover {
+    color: black;
+}
+
+.logo {
+    padding-top: 20px;
+    margin-bottom: -20px;
+}
+
+.logo img {
+    object-fit: cover;
+}

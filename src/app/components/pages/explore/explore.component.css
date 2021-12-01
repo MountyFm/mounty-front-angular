@@ -1,0 +1,32 @@
+.upper-div {
+    margin-top: 3%;
+    display: flex;
+}
+
+.main-img {
+    width: 50%;
+    background-color: tomato;
+    border-radius: 10px;
+}
+
+.main-img img {
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+.intro {
+    width: 45%;
+    background-color: turquoise;
+    margin-left: 5%;
+    border-radius: 10px;
+}
+
+.intro :nth-child(1) {
+    text-align: center;
+    padding: 10%;
+}
+
+.intro :nth-child(1) p {
+    font-size: 20pt;
+}
+

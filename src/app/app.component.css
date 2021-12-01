@@ -1,0 +1,11 @@
+.main-container {
+    margin: auto 10px;
+    height: 800px;
+    background: #222525;
+}
+
+
+.body-container {
+    width: 70%;
+    margin-left: 15%;
+}
