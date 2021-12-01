@@ -3,6 +3,11 @@
     display: flex;
 }
 
+.lower-div {
+    margin-top: 3%;
+    display: flex;
+}
+
 .main-img {
     width: 50%;
     background-color: tomato;
