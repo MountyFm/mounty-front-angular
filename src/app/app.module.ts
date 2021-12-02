@@ -8,6 +8,7 @@ import { ExploreComponent } from './components/pages/explore/explore.component';
 import { LoginComponent } from './components/pages/login/login.component';
 import { MyRoomsComonent } from './components/pages/my-rooms/my-rooms.component';
 import { AuthService } from './services/auth/auth.service';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { AuthService } from './services/auth/auth.service';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule
   ],
   providers: [AuthService],
   bootstrap: [AppComponent]
