@@ -1,9 +1,147 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { Room } from 'src/app/dtos/room';
+import { RoomsService } from 'src/app/rooms.service';
 
 @Component({
   selector: 'explore',
   templateUrl: 'explore.component.html',
   styleUrls: ['./explore.component.css']
 })
-export class ExploreComponent {
+export class ExploreComponent implements OnInit{
+
+  rooms: Room[][] = [];
+
+  constructor() {
+    
+  }
+
+  ngOnInit(): void {
+    // this.roomsService.getRoomsForExplore()
+    // .subscribe(rooms => this.rooms = rooms)
+    const mockRooms = [
+      {
+        id: "1",
+        title: "Bobby's room",
+        status: "active",
+        isPrivate: false,
+        imageUrl: "test",
+        spotifyUri: "test",
+        createdAt: new Date()
+      },
+      {
+        id: "1",
+        title: "test",
+        status: "active",
+        isPrivate: false,
+        imageUrl: "test",
+        spotifyUri: "test",
+        createdAt: new Date()
+      },
+      {
+        id: "1",
+        title: "test",
+        status: "active",
+        isPrivate: false,
+        imageUrl: "test",
+        spotifyUri: "test",
+        createdAt: new Date()
+      },
+      {
+        id: "1",
+        title: "test",
+        status: "active",
+        isPrivate: false,
+        imageUrl: "test",
+        spotifyUri: "test",
+        createdAt: new Date()
+      },
+      {
+        id: "1",
+        title: "test",
+        status: "active",
+        isPrivate: false,
+        imageUrl: "test",
+        spotifyUri: "test",
+        createdAt: new Date()
+      },
+      {
+        id: "1",
+        title: "test",
+        status: "active",
+        isPrivate: false,
+        imageUrl: "test",
+        spotifyUri: "test",
+        createdAt: new Date()
+      },
+      {
+        id: "1",
+        title: "test",
+        status: "active",
+        isPrivate: false,
+        imageUrl: "test",
+        spotifyUri: "test",
+        createdAt: new Date()
+      },
+      {
+        id: "1",
+        title: "test",
+        status: "active",
+        isPrivate: false,
+        imageUrl: "test",
+        spotifyUri: "test",
+        createdAt: new Date()
+      },
+      {
+        id: "1",
+        title: "test",
+        status: "active",
+        isPrivate: false,
+        imageUrl: "test",
+        spotifyUri: "test",
+        createdAt: new Date()
+      },
+      {
+        id: "1",
+        title: "test",
+        status: "active",
+        isPrivate: false,
+        imageUrl: "test",
+        spotifyUri: "test",
+        createdAt: new Date()
+      },
+      {
+        id: "1",
+        title: "test",
+        status: "active",
+        isPrivate: false,
+        imageUrl: "test",
+        spotifyUri: "test",
+        createdAt: new Date()
+      },
+      {
+        id: "1",
+        title: "test",
+        status: "active",
+        isPrivate: false,
+        imageUrl: "test",
+        spotifyUri: "test",
+        createdAt: new Date()
+      },
+    ]
+
+    this.rooms = this.buildArr(mockRooms)
+  }
+
+  onSelect(room: Room) {
+    console.log(room)
+  }
+  buildArr(array: Room[]): Room[][]{
+    var i,j, temporary, chunk = 4;
+    var res: Room[][] = [];
+    for (j = 0,i = array.length; j < i; j += chunk) {
+      temporary = array.slice(j, j + chunk); 
+      res.push(temporary);
+    }
+    return res[0].map((col, i) => res.map(row => row[i]));
+  }
 }

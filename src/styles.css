@@ -1,4 +1,47 @@
+@import "@fontsource/baloo-2";
+
 /* You can add global styles to this file, and also import other style files */
 html {
     background: #222525;
+    font-family: "Baloo 2"
+}
+
+.rooms {
+    display: flex;
+    flex-direction: row;
+}
+
+.room {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    flex: 1;
+    height: 7em;
+    width: 17em;
+    background-color: #8DEDE7;
+    margin-left: 5px;
+    margin-right: 5px;
+    margin-bottom: 10px;
+    border-radius: 10px;
+}
+
+.room-inner {
+    display: flex;
+    flex-direction: row;
+}
+
+.room-img{
+    object-fit: cover;
+    margin-top: 3%;
+    margin-left: 3%;
+    width: 35%;
+}
+
+.room-title {
+    color: #222525;
+    text-align: center;
+    font-size: 16pt;
+    font-weight: 600;
+    margin-top: 7%;
+    margin-left: 7%;
 }
