@@ -16,7 +16,7 @@
     <div class = "lower-div rooms" >
         <div *ngFor="let drooms of rooms; let i = index">
             <div *ngFor="let room of drooms" class="room">
-                <a routerLink = '/rooms/{{room.id}}' (click) = "onSelect(room)">
+                <a routerLink = 'rooms/{{room.id}}' (click) = "onSelect(room)">
                     <div class="room-inner">
                         <img class="room-img" src="assets/img/mounty-logo.png" />
                         <div class="room-title">

@@ -1,0 +1,38 @@
+.room-blocks {
+    display: flex;
+    flex-direction: row;
+    height: 38em;
+}
+
+
+.room-block {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    flex: 1;
+    background-color: #000000;
+    height: 70%;
+    width: 33%;
+    border-radius: 10px;
+    margin-left: 1%;
+}
+
+.room-titles {
+    display: flex;
+    flex-direction: row;
+}
+
+.room-title {
+    color: #ffffff;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    flex: 1;
+    border-radius: 10px;
+    height: fit-content;
+    text-align: start;
+    font-size: 12pt;
+    margin-top: 2%;
+    margin-bottom: 1%;
+    margin-left: 2%;
+}

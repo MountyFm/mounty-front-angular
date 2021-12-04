@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Room } from 'src/app/dtos/room';
+import { RoomService } from 'src/app/room.service';
 import { RoomsService } from 'src/app/rooms.service';
 
 @Component({
@@ -11,9 +12,8 @@ export class ExploreComponent implements OnInit{
 
   rooms: Room[][] = [];
 
-  constructor() {
-    
-  }
+  constructor(private roomService: RoomService) {}
+  
 
   ngOnInit(): void {
     // this.roomsService.getRoomsForExplore()
@@ -133,8 +133,9 @@ export class ExploreComponent implements OnInit{
   }
 
   onSelect(room: Room) {
-    console.log(room)
+    this.roomService.initializeRoom(room)
   }
+
   buildArr(array: Room[]): Room[][]{
     var i,j, temporary, chunk = 4;
     var res: Room[][] = [];

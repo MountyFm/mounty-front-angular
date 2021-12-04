@@ -11,6 +11,7 @@ html {
     flex-direction: row;
 }
 
+
 .room {
     display: flex;
     flex-wrap: wrap;
