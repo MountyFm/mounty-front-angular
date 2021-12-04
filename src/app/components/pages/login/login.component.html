@@ -1,8 +1,13 @@
-<div class = "login-btn">
-    <div>
-        <img src = "assets/img/spotify-logo.png" width="20%" height="50%" class = "spotify-logo"/>
-        <p class = "login-text">
-            <a href = {{authUrl}}>Login with Spotify</a>
-        </p>
+<div *ngIf = "isAuthorized">
+    {{userProfile.name}}
+</div>
+<div *ngIf = "!isAuthorized">
+    <div class = "login-btn">
+        <div>
+            <img src = "assets/img/spotify-logo.png" width="20%" height="50%" class = "spotify-logo"/>
+            <p class = "login-text">
+                <a href = {{authUrl}}>Login with Spotify</a>
+            </p>
+        </div>
     </div>
 </div>

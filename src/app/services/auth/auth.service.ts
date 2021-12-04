@@ -21,7 +21,8 @@ export class AuthService {
 
   getAccessToken(requestBody: GetAccessTokenRequest): Observable<GetAccessTokenResponse> {
     return this.httpClient.post<GetAccessTokenResponse>(`${this.BASE_URL}/access-token`, {
-      requestBody
+      authToken: requestBody.authToken,
+      redirectUri: requestBody.redirectUri
     })
   }
 

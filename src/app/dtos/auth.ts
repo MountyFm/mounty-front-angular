@@ -2,9 +2,12 @@ export interface GetAuthUrlResponse {
     url: string;
 }
 
-export interface GetAccessTokenRequest {
-    authToken: string,
-    redirectUri: string
+export class GetAccessTokenRequest {
+    constructor(
+         public authToken: string,
+         public redirectUri: string,
+        
+        ){}
 }
 
 export interface GetAccessTokenResponse {
