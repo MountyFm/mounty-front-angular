@@ -1,3 +1,7 @@
+export interface ExploreRoomsResponse {
+    rooms: Room[]
+}
+
 export interface Room {
     id: string
     title: string

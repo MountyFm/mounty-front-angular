@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Room } from './dtos/room';
+import { ExploreRoomsResponse } from './dtos/room';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -11,10 +12,10 @@ export class RoomsService {
 
   constructor(private httpClient: HttpClient) { }
 
-  getRoomsForExplore(){
-    var exploreRoute = this.baseUrl + "/explore&size=20"
+  getRoomsForExplore(): Observable<ExploreRoomsResponse>{
+    var exploreRoute = this.baseUrl + "/explore?size=20"
     
-    return this.httpClient.get<Room[]>(exploreRoute)
+    return this.httpClient.get<ExploreRoomsResponse>(exploreRoute)
   }
 
 

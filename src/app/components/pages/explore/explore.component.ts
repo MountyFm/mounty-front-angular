@@ -12,124 +12,124 @@ export class ExploreComponent implements OnInit{
 
   rooms: Room[][] = [];
 
-  constructor(private roomService: RoomService) {}
+  constructor(private roomService: RoomService, private roomsService: RoomsService) {}
   
 
   ngOnInit(): void {
-    // this.roomsService.getRoomsForExplore()
-    // .subscribe(rooms => this.rooms = rooms)
-    const mockRooms = [
-      {
-        id: "1",
-        title: "Bobby's room",
-        status: "active",
-        isPrivate: false,
-        imageUrl: "test",
-        spotifyUri: "test",
-        createdAt: new Date()
-      },
-      {
-        id: "1",
-        title: "test",
-        status: "active",
-        isPrivate: false,
-        imageUrl: "test",
-        spotifyUri: "test",
-        createdAt: new Date()
-      },
-      {
-        id: "1",
-        title: "test",
-        status: "active",
-        isPrivate: false,
-        imageUrl: "test",
-        spotifyUri: "test",
-        createdAt: new Date()
-      },
-      {
-        id: "1",
-        title: "test",
-        status: "active",
-        isPrivate: false,
-        imageUrl: "test",
-        spotifyUri: "test",
-        createdAt: new Date()
-      },
-      {
-        id: "1",
-        title: "test",
-        status: "active",
-        isPrivate: false,
-        imageUrl: "test",
-        spotifyUri: "test",
-        createdAt: new Date()
-      },
-      {
-        id: "1",
-        title: "test",
-        status: "active",
-        isPrivate: false,
-        imageUrl: "test",
-        spotifyUri: "test",
-        createdAt: new Date()
-      },
-      {
-        id: "1",
-        title: "test",
-        status: "active",
-        isPrivate: false,
-        imageUrl: "test",
-        spotifyUri: "test",
-        createdAt: new Date()
-      },
-      {
-        id: "1",
-        title: "test",
-        status: "active",
-        isPrivate: false,
-        imageUrl: "test",
-        spotifyUri: "test",
-        createdAt: new Date()
-      },
-      {
-        id: "1",
-        title: "test",
-        status: "active",
-        isPrivate: false,
-        imageUrl: "test",
-        spotifyUri: "test",
-        createdAt: new Date()
-      },
-      {
-        id: "1",
-        title: "test",
-        status: "active",
-        isPrivate: false,
-        imageUrl: "test",
-        spotifyUri: "test",
-        createdAt: new Date()
-      },
-      {
-        id: "1",
-        title: "test",
-        status: "active",
-        isPrivate: false,
-        imageUrl: "test",
-        spotifyUri: "test",
-        createdAt: new Date()
-      },
-      {
-        id: "1",
-        title: "test",
-        status: "active",
-        isPrivate: false,
-        imageUrl: "test",
-        spotifyUri: "test",
-        createdAt: new Date()
-      },
-    ]
+    this.roomsService.getRoomsForExplore()
+    .subscribe(response => this.rooms = this.buildArr(response.rooms))
+    // const mockRooms = [
+    //   {
+    //     id: "1",
+    //     title: "Bobby's room",
+    //     status: "active",
+    //     isPrivate: false,
+    //     imageUrl: "test",
+    //     spotifyUri: "test",
+    //     createdAt: new Date()
+    //   },
+    //   {
+    //     id: "1",
+    //     title: "test",
+    //     status: "active",
+    //     isPrivate: false,
+    //     imageUrl: "test",
+    //     spotifyUri: "test",
+    //     createdAt: new Date()
+    //   },
+    //   {
+    //     id: "1",
+    //     title: "test",
+    //     status: "active",
+    //     isPrivate: false,
+    //     imageUrl: "test",
+    //     spotifyUri: "test",
+    //     createdAt: new Date()
+    //   },
+    //   {
+    //     id: "1",
+    //     title: "test",
+    //     status: "active",
+    //     isPrivate: false,
+    //     imageUrl: "test",
+    //     spotifyUri: "test",
+    //     createdAt: new Date()
+    //   },
+    //   {
+    //     id: "1",
+    //     title: "test",
+    //     status: "active",
+    //     isPrivate: false,
+    //     imageUrl: "test",
+    //     spotifyUri: "test",
+    //     createdAt: new Date()
+    //   },
+    //   {
+    //     id: "1",
+    //     title: "test",
+    //     status: "active",
+    //     isPrivate: false,
+    //     imageUrl: "test",
+    //     spotifyUri: "test",
+    //     createdAt: new Date()
+    //   },
+    //   {
+    //     id: "1",
+    //     title: "test",
+    //     status: "active",
+    //     isPrivate: false,
+    //     imageUrl: "test",
+    //     spotifyUri: "test",
+    //     createdAt: new Date()
+    //   },
+    //   {
+    //     id: "1",
+    //     title: "test",
+    //     status: "active",
+    //     isPrivate: false,
+    //     imageUrl: "test",
+    //     spotifyUri: "test",
+    //     createdAt: new Date()
+    //   },
+    //   {
+    //     id: "1",
+    //     title: "test",
+    //     status: "active",
+    //     isPrivate: false,
+    //     imageUrl: "test",
+    //     spotifyUri: "test",
+    //     createdAt: new Date()
+    //   },
+    //   {
+    //     id: "1",
+    //     title: "test",
+    //     status: "active",
+    //     isPrivate: false,
+    //     imageUrl: "test",
+    //     spotifyUri: "test",
+    //     createdAt: new Date()
+    //   },
+    //   {
+    //     id: "1",
+    //     title: "test",
+    //     status: "active",
+    //     isPrivate: false,
+    //     imageUrl: "test",
+    //     spotifyUri: "test",
+    //     createdAt: new Date()
+    //   },
+    //   {
+    //     id: "1",
+    //     title: "test",
+    //     status: "active",
+    //     isPrivate: false,
+    //     imageUrl: "test",
+    //     spotifyUri: "test",
+    //     createdAt: new Date()
+    //   },
+    // ]
 
-    this.rooms = this.buildArr(mockRooms)
+    // this.rooms = this.buildArr(mockRooms)
   }
 
   onSelect(room: Room) {
