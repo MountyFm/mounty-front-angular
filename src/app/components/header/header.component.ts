@@ -14,8 +14,9 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit(): void {
     let userSessionJson = sessionStorage.getItem('USER_SESSION');
-    if(userSessionJson != null)
+    if(userSessionJson != null) {
       this.userProfile = JSON.parse(userSessionJson);
       this.isAuthorized = true;
+    }
   }
 }
