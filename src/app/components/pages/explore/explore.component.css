@@ -11,6 +11,7 @@
     width: 50%;
     background-color: tomato;
     border-radius: 10px;
+    box-shadow: 0px 10px 5px 1px rgba(0, 0, 0, 0.25);
 }
 
 .main-img img {
@@ -25,10 +26,11 @@
 }
 
 .intro {
-    width: 45%;
-    margin-left: 5%;
+    width: 50%;
+    margin-left: 2%;
     border-radius: 10px;
     background-color: #8DEDE7;
+    box-shadow: 0px 10px 5px 1px rgba(0, 0, 0, 0.25);
 }
 
 .intro :nth-child(1) {
@@ -39,4 +41,5 @@
 .intro :nth-child(1) p {
     font-size: 20pt;
 }
+
 

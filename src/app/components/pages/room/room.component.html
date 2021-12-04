@@ -1,10 +1,26 @@
-<div class="room-titles">
-    <span class="room-title">{{room.title}}</span>
-    <span class="room-title">Songs</span>
-    <span class="room-title">Chat</span>
-</div>
-<div class="room-blocks">
-    <div class="room-block">{{room}}</div>
-    <div class="room-block">{{room}}</div>
-    <div class="room-block">{{room}}</div>
+<div id="room">
+    <div class="room-titles">
+        <span class="room-title">{{room.title}}</span>
+        <span class="room-title">Songs</span>
+        <span class="room-title">Chat</span>
+    </div>
+    <div class="room-blocks">
+        <div class="room-block">{{room}}</div>
+        <div class="room-block">{{room}}</div>
+        <div class="room-block">{{room}}</div>
+    </div>
+    <div class="room-player">
+        <div class="current-song">
+            <img class="current-song-img" src="assets/img/mounty-logo.png"/>
+            <div class="current-song-name">
+                <span class="current-song-title">Mountain Song</span>
+                <span class="current-song-author">Mountain Guy</span>
+            </div>
+        </div>
+        <div class="player-buttons">
+            <a><img class="player-button" src="assets/img/prev.png"/></a>
+            <a><img class="play-button" src="assets/img/play.png"/></a>
+            <a><img class="player-button" src="assets/img/next.png"/></a>
+        </div>
+    </div>
 </div>
