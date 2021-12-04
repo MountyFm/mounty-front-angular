@@ -4,7 +4,8 @@
     </div>
     <div class="navbar" >
         <a [routerLink] = "['/explore']"> Explore</a> 
-        <a [routerLink] = "['/my-rooms']"> My Rooms</a> 
-        <a [routerLink] = "['/login']" id = "login">Login</a>
+        <a [routerLink] = "['/my-rooms']"> My Rooms</a>
+        <a *ngIf = "!isAuthorized" [routerLink] = "['/login']" id = "login">Login</a>
+        <a *ngIf = "isAuthorized" [routerLink] = "['/profile']" id = "profile">{{userProfile.name}}</a>
     </div>
 </div>

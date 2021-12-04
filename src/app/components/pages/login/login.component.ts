@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { GetAccessTokenRequest } from 'src/app/dtos/auth'
 import { UserProfileService } from 'src/app/user-profile.service';
@@ -42,7 +42,7 @@ export class LoginComponent implements OnInit {
   getAccessToken(code: string): void {
     let requestBody = new GetAccessTokenRequest(code, this.authService.REDIRECT_URL);
     this.authService.getAccessToken(requestBody).subscribe(response => {
-      localStorage.setItem('accessToken', JSON.stringify(response));
+      sessionStorage.setItem('ACCESS_TOKEN', JSON.stringify(response));
       this.getUserProile(response.tokenKey);
     }
     )
@@ -51,8 +51,8 @@ export class LoginComponent implements OnInit {
   getUserProile(tokenKey: string) {
     this.userProfileService.getUserProfile(tokenKey).subscribe(response => 
       {
-        this.userProfile = response.userProfile;
-        this.isAuthorized = true;
+        sessionStorage.setItem("USER_SESSION", JSON.stringify(response.userProfile));
+        window.location.href = '/explore'
       }
     )
   }

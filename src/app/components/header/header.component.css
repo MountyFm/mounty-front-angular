@@ -18,6 +18,11 @@
     padding-right: 3%;
 }
 
+.navbar #profile {
+    float: right;
+    padding-right: 3%;
+}
+
 .navbar a:hover {
     color: black;
 }
