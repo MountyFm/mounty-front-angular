@@ -7,7 +7,31 @@
     <div class="room-blocks">
         <div class="room-block">{{room}}</div>
         <div class="room-block">{{room}}</div>
-        <div class="room-block">{{room}}</div>
+        <div class="room-block">
+            <div class="container">
+                <div #scrollChat class="chat-content">
+                    <div class="card">
+                        <ul class="list-messages">
+                            <li *ngFor="let roomMessage of chatService.roomMessages">
+                                <span class="message-time">{{getHoursAndMinutes(roomMessage.createdAt)}} </span>
+                                <strong>{{roomMessage.userName}}: </strong>
+                                <span class="list-message">{{roomMessage.messageText}}</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <form (ngSubmit)="sendMessage(sendForm)" #sendForm="ngForm" class="chat-form">
+                    <div class="chat-send">
+                        <div>
+                            <input type="text" class="form-control" name="message" id="input-message" ngModel>
+                        </div>
+                        <div>
+                            <button type="submit" class="send">Send</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
     </div>
     <div class="room-player">
         <div class="current-song">

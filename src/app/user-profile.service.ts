@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpParams } from '@angular/common/http'
 import { Observable } from 'rxjs';
-import {UserProfileResponse} from './dtos/userProfile'
+import {UserProfile, UserProfileResponse} from './dtos/userProfile'
 
 @Injectable({
   providedIn: 'root'
@@ -17,4 +17,5 @@ export class UserProfileService {
       tokenKey: tokenKey
     })
   }
+
 }

@@ -8,9 +8,9 @@ import { RoomComponent } from './components/pages/room/room.component';
 const routes: Routes = [
   { path: '', component: ExploreComponent},
   { path: 'explore', component: ExploreComponent},
-  { path: 'explore/rooms/:roomId', component: RoomComponent},
-  { path: 'my-rooms', component: MyRoomsComonent},
-  { path: 'my-rooms/:roomId', component: RoomComponent},
+  { path: 'explore/room/:roomId', component: RoomComponent},
+  { path: 'my-rooms', component: MyRoomsComonent},  
+  { path: 'my-rooms/room/:roomId', component: RoomComponent},
   { path: 'login', component: LoginComponent, pathMatch: 'full'},
 ];
 
