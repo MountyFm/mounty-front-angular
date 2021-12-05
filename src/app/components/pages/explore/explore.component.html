@@ -13,18 +13,18 @@
         <p class="room-p">Explore Rooms</p>
         <hr>
     </div>
-    <div class = "lower-div rooms" >
-        <div *ngFor="let drooms of rooms; let i = index">
-            <div *ngFor="let room of drooms" class="room">
-                <a routerLink = 'rooms/{{room.id}}' (click) = "onSelect(room)">
-                    <div class="room-inner">
-                        <img class="room-img" src="assets/img/mounty-logo.png" />
-                        <div class="room-title">
-                          <p>{{room.title}}</p>  
-                        </div>
+    <div class = "lower-div-rooms">
+        <div *ngFor="let room of rooms" class="room">
+            <a routerLink = 'rooms/{{room.id}}' (click) = "onSelect(room)">
+                <div class="room-inner">
+                    <div class = "room-img">
+                        <img src="assets/img/mounty-logo.png" width="110px" height="110px"/>
                     </div>
-                </a>
-            </div>
+                    <div class="room-title">
+                      <p>{{room.title}}</p>  
+                    </div>
+                </div>
+            </a>
         </div>
     </div>
 </div>

@@ -10,14 +10,14 @@ import { RoomsService } from 'src/app/rooms.service';
 })
 export class ExploreComponent implements OnInit{
 
-  rooms: Room[][] = [];
+  rooms: Room[] = [];
 
   constructor(private roomService: RoomService, private roomsService: RoomsService) {}
   
 
   ngOnInit(): void {
     this.roomsService.getRoomsForExplore()
-    .subscribe(response => this.rooms = this.buildArr(response.rooms))
+    .subscribe(response => this.rooms = response.rooms)
     // const mockRooms = [
     //   {
     //     id: "1",
@@ -100,36 +100,36 @@ export class ExploreComponent implements OnInit{
     //     spotifyUri: "test",
     //     createdAt: new Date()
     //   },
-    //   {
-    //     id: "1",
-    //     title: "test",
-    //     status: "active",
-    //     isPrivate: false,
-    //     imageUrl: "test",
-    //     spotifyUri: "test",
-    //     createdAt: new Date()
-    //   },
-    //   {
-    //     id: "1",
-    //     title: "test",
-    //     status: "active",
-    //     isPrivate: false,
-    //     imageUrl: "test",
-    //     spotifyUri: "test",
-    //     createdAt: new Date()
-    //   },
-    //   {
-    //     id: "1",
-    //     title: "test",
-    //     status: "active",
-    //     isPrivate: false,
-    //     imageUrl: "test",
-    //     spotifyUri: "test",
-    //     createdAt: new Date()
-    //   },
+      // {
+      //   id: "1",
+      //   title: "test",
+      //   status: "active",
+      //   isPrivate: false,
+      //   imageUrl: "test",
+      //   spotifyUri: "test",
+      //   createdAt: new Date()
+      // },
+      // {
+      //   id: "1",
+      //   title: "test",
+      //   status: "active",
+      //   isPrivate: false,
+      //   imageUrl: "test",
+      //   spotifyUri: "test",
+      //   createdAt: new Date()
+      // },
+      // {
+      //   id: "1",
+      //   title: "test",
+      //   status: "active",
+      //   isPrivate: false,
+      //   imageUrl: "test",
+      //   spotifyUri: "test",
+      //   createdAt: new Date()
+      // },
     // ]
 
-    // this.rooms = this.buildArr(mockRooms)
+    // this.rooms = mockRooms
   }
 
   onSelect(room: Room) {
