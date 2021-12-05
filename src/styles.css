@@ -11,7 +11,7 @@ html {
     flex-direction: row;
 }
 
-.room {
+/* .room {
     display: flex;
     flex-wrap: wrap;
     flex-direction: column;
@@ -24,7 +24,7 @@ html {
     margin-bottom: 1%;
     border-radius: 10px;
     box-shadow: 0px 10px 5px 1px rgba(0, 0, 0, 0.25);
-}
+} */
 
 .room-img{
     object-fit: cover;
@@ -36,4 +36,69 @@ html {
     text-align: center;
     font-size: 16pt;
     font-weight: 600;
+}
+
+#explore.room, #my-rooms.room{
+    min-width: 240px;
+    min-height: 113px;
+    text-decoration: none;
+    border: 1px solid #8DEDE7;
+    font-size: 25px;
+    line-height: 35px;
+    text-align: center;
+    margin: 10px;
+    border-radius: 10px;
+    background-color:#8DEDE7;
+}
+
+
+.room-inner {
+    max-width: 320px;
+    height: auto;
+    display: flex;
+    padding: 3%;
+    margin: 0 auto;
+    position: relative;
+}
+
+.room-img {
+    width: 90px;
+    height: 90px;
+    margin: 0px;
+}
+
+.room-img img{
+    margin-left: 0px;
+    object-fit: fill;
+}
+
+#explore.room-title p, #my-rooms.room-title p {
+    width: 100px;
+    height: 60%;
+    margin-top: 20%;
+    text-align: left;
+    margin-left: 25%;
+}
+
+.room-p {
+    color: #ffffff;
+    font-size: 18pt;
+    font-weight: 400;
+}
+
+.upper-div {
+    margin-top: 3%;
+    display: flex;
+}
+
+.lower-div{
+    margin-top: 3%;
+    flex-flow: row wrap;
+    display: flex;
+}
+
+@media only screen and (max-width:910px) {
+    .lower-div{
+        justify-content: center;
+    }
 }

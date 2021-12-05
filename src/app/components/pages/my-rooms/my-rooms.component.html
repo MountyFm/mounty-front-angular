@@ -14,14 +14,14 @@
         <p class="room-p">My Rooms</p>
         <hr>
     </div>
-    <div class = "lower-div-rooms">
-        <div *ngFor="let room of rooms" class="room">
+    <div class = "lower-div">
+        <div *ngFor="let room of rooms" id = "my-rooms" class="room">
             <a routerLink = 'room/{{room.id}}' (click) = "onSelect(room)">
                 <div class="room-inner">
                     <div class = "room-img">
-                        <img src="assets/img/mounty-logo.png" width="110px" height="110px"/>
+                        <img src="assets/img/mounty-logo.png" width="90px" height="90px"/>
                     </div>
-                    <div class="room-title">
+                    <div id = "my-rooms" class="room-title">
                       <p>{{room.title}}</p>  
                     </div>
                 </div>

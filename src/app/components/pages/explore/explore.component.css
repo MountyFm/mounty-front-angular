@@ -1,14 +1,3 @@
-.upper-div {
-    margin-top: 3%;
-    display: flex;
-}
-
-.lower-div-rooms{
-    margin-top: 3%;
-    flex-flow: row wrap;
-    display: flex;
-}
-
 .main-img {
     width: 50%;
     background-color: tomato;
@@ -21,11 +10,6 @@
     border-radius: 10px;
 }
 
-.room-p {
-    color: #ffffff;
-    font-size: 18pt;
-    font-weight: 400;
-}
 
 .intro {
     width: 50%;
@@ -43,45 +27,3 @@
 .intro :nth-child(1) p {
     font-size: 20pt;
 }
-
-.room {
-    min-width: 320px;
-    max-height: 150px;
-    text-decoration: none;
-    border: 1px solid #8DEDE7;
-    font-size: 25px;
-    line-height: 35px;
-    text-align: center;
-    margin: 10px;
-    border-radius: 10px;
-    background-color:#8DEDE7;
-}
-
-.room-inner {
-    max-width: 320px;
-    height: auto;
-    display: flex;
-    padding: 3%;
-    margin: 0 auto;
-    position: relative;
-}
-
-.room-img {
-    width: 47%;
-    min-height: 100%;
-}
-
-.room-img img{
-    margin-left: 0px;
-}
-
-.room-title {
-    width: 47%;
-    margin: 0px;
-    min-height: 100%;
-}
-
-.room-title p {
-    text-align: left;
-}
-
