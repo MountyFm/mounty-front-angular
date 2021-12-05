@@ -1,0 +1,150 @@
+.upper-div {
+    margin-top: 3%;
+    display: flex;
+}
+
+.lower-div-rooms{
+    margin-top: 3%;
+    flex-flow: row wrap;
+    display: flex;
+}
+
+.main-img {
+    width: 50%;
+    background-color: tomato;
+    border-radius: 10px;
+    box-shadow: 0px 10px 5px 1px rgba(0, 0, 0, 0.25);
+}
+
+.main-img img {
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+.room-p {
+    color: #ffffff;
+    font-size: 18pt;
+    font-weight: 400;
+}
+
+.intro {
+    width: 50%;
+    margin-left: 2%;
+    border-radius: 10px;
+    background-color: #8DEDE7;
+    box-shadow: 0px 10px 5px 1px rgba(0, 0, 0, 0.25);
+}
+
+.intro :nth-child(1) {
+    text-align: center;
+    padding: 10%;
+}
+
+.intro :nth-child(1) p {
+    font-size: 20pt;
+}
+
+.room {
+    min-width: 320px;
+    max-height: 150px;
+    text-decoration: none;
+    border: 1px solid #8DEDE7;
+    font-size: 25px;
+    line-height: 35px;
+    text-align: center;
+    margin: 10px;
+    border-radius: 10px;
+    background-color:#8DEDE7;
+}
+
+.room-inner {
+    max-width: 320px;
+    height: auto;
+    display: flex;
+    padding: 3%;
+    margin: 0 auto;
+    position: relative;
+}
+
+.room-img {
+    width: 47%;
+    min-height: 100%;
+    margin: 0px;
+}
+
+.room-img img{
+    margin-left: 0px;
+}
+
+.room-title {
+    width: 47%;
+    margin: 0px;
+    min-height: 100%;
+}
+
+.room-title p {
+    text-align: left;
+}
+
+.invite-div {
+    width: 50%;
+    margin-left: 25%;
+    text-decoration: none;
+    border: 1px solid #8DEDE7;
+    font-size: 25px;
+    line-height: 35px;
+    text-align: center;
+    border-radius: 10px;
+    background-color:#8DEDE7;
+    padding: 3%;
+}
+
+.invite-input-btn {
+    display: flex;
+    margin-top: 3%;
+    width: 80%;
+    margin-left: 10%;
+}
+
+.invite-input-btn input {
+   width: 70%;
+   float: left;
+   border-radius: 10px;
+   background-color: white;
+   font-weight: bold;
+   font-size: 12pt;
+   text-align: center;
+   color: gray;
+   border: none;
+   box-shadow: 0 -2px 2pt#888888;
+}
+
+.invite-input-btn button {
+    width: 30%;
+    margin-left: 2.5%;
+    float: right;
+    border-radius: 10px;
+    background-color: #4CAF50;
+    border: none;
+    color: white;
+    font-size: 14pt;
+ }
+
+ input[type=text]:hover{
+    box-shadow: 0 0 5pt 0.5pt #D3D3D3;
+  }
+  input[type=text]:focus {
+    box-shadow: 0 0 5pt 2pt #D3D3D3;
+    outline-width: 0px;
+  }
+
+.invite-form {
+    width: 80%;
+    margin-left: 10%;
+    text-align: center;
+}
+
+.invite-form label {
+    font-weight: bold;
+    font-size: 16pt;
+}

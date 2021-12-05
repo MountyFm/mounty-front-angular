@@ -13,7 +13,7 @@ export class HeaderComponent implements OnInit {
   userProfile!: UserProfile;
 
   ngOnInit(): void {
-    let userSessionJson = sessionStorage.getItem('USER_SESSION');
+    let userSessionJson = sessionStorage.getItem('USER_PROFILE');
     if(userSessionJson != null) {
       this.userProfile = JSON.parse(userSessionJson);
       this.isAuthorized = true;

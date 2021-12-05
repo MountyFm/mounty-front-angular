@@ -1,4 +1,4 @@
-export interface ExploreRoomsResponse {
+export interface RoomsResponse {
     rooms: Room[]
 }
 

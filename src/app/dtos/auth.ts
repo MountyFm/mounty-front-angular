@@ -10,17 +10,12 @@ export class GetAccessTokenRequest {
         ){}
 }
 
-export interface GetAccessTokenResponse {
-    tokenKey: string,
-    refreshToken: string,
-    expiresAfterDate: Date
-}
-
 export interface RefreshAccessTokenRequest {
     refreshToken: string,
 }
 
-export interface RefreshAccessTokenResponse {
+export interface AccessToken {
     tokenKey: string,
+    refreshToken?: string,
     expiresAfterDate: Date
 }

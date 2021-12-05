@@ -51,7 +51,7 @@ export class LoginComponent implements OnInit {
   getUserProile(tokenKey: string) {
     this.userProfileService.getUserProfile(tokenKey).subscribe(response => 
       {
-        sessionStorage.setItem("USER_SESSION", JSON.stringify(response.userProfile));
+        sessionStorage.setItem("USER_PROFILE", JSON.stringify(response.userProfile));
         window.location.href = '/explore'
       }
     )
