@@ -13,7 +13,7 @@ export class ExploreComponent implements OnInit{
   rooms: Room[] = [];
 
   constructor(private roomService: RoomService, private roomsService: RoomsService) {}
-  
+
 
   ngOnInit(): void {
     // this.roomsService.getRoomsForExplore()
@@ -140,7 +140,7 @@ export class ExploreComponent implements OnInit{
     var i,j, temporary, chunk = 4;
     var res: Room[][] = [];
     for (j = 0,i = array.length; j < i; j += chunk) {
-      temporary = array.slice(j, j + chunk); 
+      temporary = array.slice(j, j + chunk);
       res.push(temporary);
     }
     return res[0].map((col, i) => res.map(row => row[i]));
