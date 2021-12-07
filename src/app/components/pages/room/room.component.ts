@@ -3,6 +3,8 @@ import { NgForm } from '@angular/forms';
 import { Room } from 'src/app/dtos/room';
 import { RoomMessageDTO } from 'src/app/dtos/roomMessageDTO';
 import { UserProfile } from 'src/app/dtos/userProfile';
+import { RoomUser } from 'src/app/dtos/roomUser';
+import { PlayerService } from 'src/app/player.service';
 import { RoomService } from 'src/app/room.service';
 import { ChatService } from 'src/app/services/chat.service';
 import { UserProfileService } from 'src/app/user-profile.service';
@@ -19,10 +21,14 @@ export class RoomComponent implements OnInit,OnDestroy,AfterViewChecked {
 
   userProfile!: UserProfile;
   room: Room
+  roomUser!: RoomUser;
+  isPlay: boolean = true
+  isOwner: boolean = true
 
   constructor(
     private roomService: RoomService,
     public chatService: ChatService,
+    public playerService: PlayerService
     ) { 
     this.room = this.roomService.returnRoom()
     let userSessionJson = sessionStorage.getItem('USER_PROFILE');
@@ -69,5 +75,20 @@ export class RoomComponent implements OnInit,OnDestroy,AfterViewChecked {
 
   getHoursAndMinutes(date: Date) {
     return (new Date(date)).getHours().toString() + ":" + ((new Date(date)).getMinutes()<10?'0':'') + (new Date(date)).getMinutes().toString();
+  }
+
+  changePlayerState(state: string, contextUri?: string, offset?: string) {
+    if (state == "play") {
+      this.isPlay = false
+    } else if (state = "stop") {
+      this.isPlay = true
+    }
+
+    this.playerService.changePlayerState(
+      state = state,
+      this.room.id,
+      contextUri = contextUri,
+      offset = offset
+    )
   }
 }
