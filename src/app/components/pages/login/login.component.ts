@@ -4,6 +4,7 @@ import { AuthService } from 'src/app/services/auth/auth.service';
 import { GetAccessTokenRequest } from 'src/app/dtos/auth'
 import { UserProfileService } from 'src/app/user-profile.service';
 import { UserProfile } from 'src/app/dtos/userProfile';
+import { StorageService } from 'src/app/storage.service';
 
 @Component({
   selector: 'login',
@@ -13,7 +14,10 @@ import { UserProfile } from 'src/app/dtos/userProfile';
 })
 export class LoginComponent implements OnInit {
 
-  constructor(private authService: AuthService, private userProfileService: UserProfileService, private route: ActivatedRoute) {
+  constructor(private authService: AuthService, 
+    private userProfileService: UserProfileService, 
+    private route: ActivatedRoute,
+    private storageService: StorageService) {
     console.log('Called Constructor');
     this.route.queryParams.subscribe(params => {
         this.code = params['code'];
@@ -42,7 +46,7 @@ export class LoginComponent implements OnInit {
   getAccessToken(code: string): void {
     let requestBody = new GetAccessTokenRequest(code, this.authService.REDIRECT_URL);
     this.authService.getAccessToken(requestBody).subscribe(response => {
-      sessionStorage.setItem('ACCESS_TOKEN', JSON.stringify(response));
+      this.storageService.saveAccessToken(response);
       this.getUserProile(response.tokenKey);
     }
     )
@@ -51,7 +55,7 @@ export class LoginComponent implements OnInit {
   getUserProile(tokenKey: string) {
     this.userProfileService.getUserProfile(tokenKey).subscribe(response => 
       {
-        sessionStorage.setItem("USER_PROFILE", JSON.stringify(response.userProfile));
+        this.storageService.saveUserProfile(response.userProfile);
         window.location.href = '/explore'
       }
     )

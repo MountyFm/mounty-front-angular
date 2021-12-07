@@ -15,10 +15,10 @@
     </div>
     <div class = "lower-div">
         <div *ngFor="let room of rooms" id = "explore" class="room">
-            <a routerLink = 'room/{{room.id}}' (click) = "onSelect(room)">
+            <a [routerLink] = "['room/{{room.id}}']" (click) = "onSelect(room)">
                 <div class="room-inner">
                     <div class = "room-img">
-                        <img src="assets/img/mounty-logo.png" width="90px" height="90px"/>
+                        <img src="{{room.imageUrl}}" width="90px" height="90px"/>
                     </div>
                     <div id = "explore" class="room-title">
                       <p>{{room.title}}</p>  

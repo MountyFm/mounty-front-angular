@@ -6,7 +6,20 @@
     </div>
     <div class="room-blocks">
         <div class="room-block">{{room}}</div>
-        <div class="room-block">{{room}}</div>
+        <div class="room-block" id = "track">
+            <div *ngFor="let track of tracks" id = "room-tracks" class="room-tracks">
+                <a (click) = "play()">
+                    <div class = "track-inner">
+                        <div class = "track-img">
+                            <img src = "{{track.imageUrl}}" width="50px" height="50px"/>
+                        </div>
+                        <div class = "track-info">
+                            <p>{{track.name}}<br><span style="font-size: 11px;">{{track.artists}}</span></p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
         <div class="room-block">
             <div class="container">
                 <div #scrollChat class="chat-content">

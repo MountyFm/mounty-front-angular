@@ -11,7 +11,7 @@
     flex-wrap: wrap;
     flex-direction: column;
     flex: 1;
-    background-color: #000000;
+    background-color: black;
     width: 33%;
     border-radius: 10px;
     margin-left: 3px;
@@ -21,6 +21,17 @@
 .room-titles {
     display: flex;
     flex-direction: row;
+}
+
+#track.room-block {
+    background-color: black;
+    display: inline-block;
+    overflow: auto;
+}
+
+::-webkit-scrollbar {
+    width: 0;  /* Remove scrollbar space */
+    background: transparent;  /* Optional: just make scrollbar invisible */
 }
 
 .room-title {
@@ -156,4 +167,45 @@ button {
 
 .message-time {
     font-size: 10pt;
+}
+
+.track-inner {
+    width: 96%;
+    height: 54px;
+    margin-left: 2%;
+    margin-top: 2%;
+    background-color: blue;
+    border-bottom: blanchedalmond 1px bold;
+    display: flex;
+}
+
+.track-img {
+    width: 20%;
+    height: 100%;
+    background-color: black;
+}
+
+.track-img img {
+    width: 80%;
+    height: 90%;
+    margin-left: 10%;
+    margin-top: 5%;
+    position: relative;
+    display: block;
+    margin: auto;
+    border-radius: 5px;
+}
+
+.track-info {
+    width: 80%;
+    height: 100%;
+    background-color: black;
+    display: block;
+}
+
+.track-info p {
+    margin: 1%;
+    font-size: 13px;
+    font-weight: bold;
+    color: white;
 }

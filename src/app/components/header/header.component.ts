@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UserProfile } from 'src/app/dtos/userProfile';
-
+import { StorageService } from 'src/app/storage.service';
 
 @Component({
   selector: 'header',
@@ -12,10 +12,12 @@ export class HeaderComponent implements OnInit {
   isAuthorized: boolean = false;
   userProfile!: UserProfile;
 
+  constructor(private storageService: StorageService) {}
+
   ngOnInit(): void {
-    let userSessionJson = sessionStorage.getItem('USER_PROFILE');
-    if(userSessionJson != null) {
-      this.userProfile = JSON.parse(userSessionJson);
+    let userProfile = this.storageService.returnUserProfile();
+    if(userProfile != null) {
+      this.userProfile = userProfile;
       this.isAuthorized = true;
     }
   }
