@@ -174,15 +174,14 @@ button {
     height: 54px;
     margin-left: 2%;
     margin-top: 2%;
-    background-color: blue;
-    border-bottom: blanchedalmond 1px bold;
     display: flex;
+    border-bottom: solid 0.1em white;
 }
 
 .track-img {
     width: 20%;
-    height: 100%;
-    background-color: black;
+    height: 50px;
+    margin-top: 2px;
 }
 
 .track-img img {
@@ -199,7 +198,6 @@ button {
 .track-info {
     width: 80%;
     height: 100%;
-    background-color: black;
     display: block;
 }
 
