@@ -15,120 +15,120 @@ export class MyRoomsComonent implements OnInit {
 
 
   ngOnInit(): void {
-    // this.roomsService.getCurrentUserRooms()
-    // .subscribe(response => this.rooms = response.rooms)
-     const mockRooms = [
-       {
-         id: "1",
-         title: "Bobby's room",
-         status: "active",
-         isPrivate: false,
-         imageUrl: "test",
-         spotifyUri: "test",
-         createdAt: new Date()
-       },
-       {
-         id: "1",
-         title: "test",
-         status: "active",
-         isPrivate: false,
-         imageUrl: "test",
-         spotifyUri: "test",
-         createdAt: new Date()
-       },
-       {
-         id: "1",
-         title: "test",
-         status: "active",
-         isPrivate: false,
-         imageUrl: "test",
-         spotifyUri: "test",
-         createdAt: new Date()
-       },
-       {
-         id: "1",
-         title: "test",
-         status: "active",
-         isPrivate: false,
-         imageUrl: "test",
-         spotifyUri: "test",
-         createdAt: new Date()
-       },
-       {
-         id: "1",
-         title: "test",
-         status: "active",
-         isPrivate: false,
-         imageUrl: "test",
-         spotifyUri: "test",
-         createdAt: new Date()
-       },
-       {
-         id: "1",
-         title: "test",
-         status: "active",
-         isPrivate: false,
-         imageUrl: "test",
-         spotifyUri: "test",
-         createdAt: new Date()
-       },
-       {
-         id: "1",
-         title: "test",
-         status: "active",
-         isPrivate: false,
-         imageUrl: "test",
-         spotifyUri: "test",
-         createdAt: new Date()
-       },
-       {
-         id: "1",
-         title: "test",
-         status: "active",
-         isPrivate: false,
-         imageUrl: "test",
-         spotifyUri: "test",
-         createdAt: new Date()
-       },
-       {
-         id: "1",
-         title: "test",
-         status: "active",
-         isPrivate: false,
-         imageUrl: "test",
-         spotifyUri: "test",
-         createdAt: new Date()
-       },
-     {
-       id: "1",
-       title: "test",
-       status: "active",
-       isPrivate: false,
-       imageUrl: "test",
-       spotifyUri: "test",
-       createdAt: new Date()
-     },
-     {
-       id: "1",
-       title: "test",
-       status: "active",
-       isPrivate: false,
-       imageUrl: "test",
-       spotifyUri: "test",
-       createdAt: new Date()
-     },
-     {
-       id: "1",
-       title: "test",
-       status: "active",
-       isPrivate: false,
-       imageUrl: "test",
-       spotifyUri: "test",
-       createdAt: new Date()
-      },
-     ]
+    this.roomsService.getCurrentUserRooms()
+    .subscribe(response => this.rooms = response.rooms)
+    //  const mockRooms = [
+    //    {
+    //      id: "1",
+    //      title: "Bobby's room",
+    //      status: "active",
+    //      isPrivate: false,
+    //      imageUrl: "test",
+    //      spotifyUri: "test",
+    //      createdAt: new Date()
+    //    },
+    //    {
+    //      id: "1",
+    //      title: "test",
+    //      status: "active",
+    //      isPrivate: false,
+    //      imageUrl: "test",
+    //      spotifyUri: "test",
+    //      createdAt: new Date()
+    //    },
+    //    {
+    //      id: "1",
+    //      title: "test",
+    //      status: "active",
+    //      isPrivate: false,
+    //      imageUrl: "test",
+    //      spotifyUri: "test",
+    //      createdAt: new Date()
+    //    },
+    //    {
+    //      id: "1",
+    //      title: "test",
+    //      status: "active",
+    //      isPrivate: false,
+    //      imageUrl: "test",
+    //      spotifyUri: "test",
+    //      createdAt: new Date()
+    //    },
+    //    {
+    //      id: "1",
+    //      title: "test",
+    //      status: "active",
+    //      isPrivate: false,
+    //      imageUrl: "test",
+    //      spotifyUri: "test",
+    //      createdAt: new Date()
+    //    },
+    //    {
+    //      id: "1",
+    //      title: "test",
+    //      status: "active",
+    //      isPrivate: false,
+    //      imageUrl: "test",
+    //      spotifyUri: "test",
+    //      createdAt: new Date()
+    //    },
+    //    {
+    //      id: "1",
+    //      title: "test",
+    //      status: "active",
+    //      isPrivate: false,
+    //      imageUrl: "test",
+    //      spotifyUri: "test",
+    //      createdAt: new Date()
+    //    },
+    //    {
+    //      id: "1",
+    //      title: "test",
+    //      status: "active",
+    //      isPrivate: false,
+    //      imageUrl: "test",
+    //      spotifyUri: "test",
+    //      createdAt: new Date()
+    //    },
+    //    {
+    //      id: "1",
+    //      title: "test",
+    //      status: "active",
+    //      isPrivate: false,
+    //      imageUrl: "test",
+    //      spotifyUri: "test",
+    //      createdAt: new Date()
+    //    },
+    //  {
+    //    id: "1",
+    //    title: "test",
+    //    status: "active",
+    //    isPrivate: false,
+    //    imageUrl: "test",
+    //    spotifyUri: "test",
+    //    createdAt: new Date()
+    //  },
+    //  {
+    //    id: "1",
+    //    title: "test",
+    //    status: "active",
+    //    isPrivate: false,
+    //    imageUrl: "test",
+    //    spotifyUri: "test",
+    //    createdAt: new Date()
+    //  },
+    //  {
+    //    id: "1",
+    //    title: "test",
+    //    status: "active",
+    //    isPrivate: false,
+    //    imageUrl: "test",
+    //    spotifyUri: "test",
+    //    createdAt: new Date()
+    //   },
+    //  ]
 
-     this.rooms = mockRooms
+    //  this.rooms = mockRooms
   }
 
   onSelect(room: Room) {

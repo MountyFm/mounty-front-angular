@@ -8,6 +8,7 @@ import { PlayerService } from 'src/app/player.service';
 import { RoomService } from 'src/app/room.service';
 import { ChatService } from 'src/app/services/chat.service';
 import { UserProfileService } from 'src/app/user-profile.service';
+import { Track } from 'src/app/dtos/track';
 
 @Component({
   selector: 'app-room',
@@ -21,9 +22,12 @@ export class RoomComponent implements OnInit,OnDestroy,AfterViewChecked {
 
   userProfile!: UserProfile;
   room: Room
+
   roomUser!: RoomUser;
   isPlay: boolean = true
   isOwner: boolean = true
+  tracks!: Track[]
+  isTrackPlaying: boolean = false
 
   constructor(
     private roomService: RoomService,
@@ -41,6 +45,7 @@ export class RoomComponent implements OnInit,OnDestroy,AfterViewChecked {
   ngOnInit(): void {
     this.room = this.roomService.returnRoom()
     console.log(this.room)
+    this.getRoomTracks();
     this.chatService.openWebSocket(this.room.id);
     this.scrollToBottom();
   }
@@ -90,5 +95,25 @@ export class RoomComponent implements OnInit,OnDestroy,AfterViewChecked {
       contextUri = contextUri,
       offset = offset
     )
+  }
+
+  getRoomTracks() {
+    this.roomService.getRoomTracks(this.room.id).subscribe(response => 
+      {
+        this.room = response.room
+        this.tracks = response.tracks
+      }
+    )
+  }
+
+  play() {
+    if(this.isTrackPlaying){
+      this.isTrackPlaying = false
+      alert("playing")
+    }
+    else{
+      this.isTrackPlaying = true
+      alert("paused")
+    }
   }
 }

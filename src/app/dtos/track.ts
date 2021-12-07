@@ -2,7 +2,7 @@ export interface Track {
     id: string
     imageUrl: string
     spotifyUri: string
-    artist: string[]
+    artists: string[]
     name: string
     duration: number
 }

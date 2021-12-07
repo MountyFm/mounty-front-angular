@@ -4,6 +4,7 @@ import { RoomsResponse } from './dtos/room';
 import { Observable } from 'rxjs';
 import { AccessToken } from './dtos/auth';
 import { UserProfile } from './dtos/userProfile';
+import { StorageService } from './storage.service';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +13,7 @@ export class RoomsService {
 
   private baseUrl: string = "http://localhost:8080/api/rooms"
 
-  constructor(private httpClient: HttpClient) { }
+  constructor(private httpClient: HttpClient, private storageService: StorageService) { }
 
   getRoomsForExplore(): Observable<RoomsResponse>{
     var exploreRoute = this.baseUrl + "/explore?size=20"
@@ -22,20 +23,16 @@ export class RoomsService {
 
   getCurrentUserRooms(): Observable<RoomsResponse>{
     var currentUserRoomsRoute = this.baseUrl + "/current-user-rooms?limit=20"
-    let accessTokenJson = sessionStorage.getItem("ACCESS_TOKEN");
-    let userSessionJson = sessionStorage.getItem("USER_PROFILE");
+    let accessToken: AccessToken | null = this.storageService.returnAccessToken();
+    let userProfile: UserProfile | null  = this.storageService.returnUserProfile();
 
-    if(accessTokenJson == null || userSessionJson == null){
+    if(accessToken == null || userProfile == null){
       throw "empty access token or session"
     }
 
-    let accessToken: AccessToken = JSON.parse(accessTokenJson)
-
-    let userProfile: UserProfile = JSON.parse(userSessionJson)
+    let httpParams = new HttpParams().append('tokenKey', accessToken.tokenKey)
+    .append('userId', userProfile.id)
     
-    return this.httpClient.get<RoomsResponse>(currentUserRoomsRoute, {params: {
-      tokenKey: accessToken.tokenKey,
-      userId: userProfile.id
-    }})
+    return this.httpClient.get<RoomsResponse>(currentUserRoomsRoute, {params: httpParams})
   } 
 }
