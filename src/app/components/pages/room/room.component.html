@@ -54,9 +54,9 @@
                 <span class="current-song-author">Mountain Guy</span>
             </div>
         </div>
-        <div *ngIf="isOwner; else notOwner" class="player-buttons">
+        <div class="player-buttons">
             <a (click)='changePlayerState("prev")'><img class="player-button" src="assets/img/prev.png"/></a>
-            <a *ngIf="isPlay; else stopTrack" (click)='changePlayerState("play")'><img class="play-button" src="assets/img/play.png"/></a>
+            <a (click)='changePlayerState("play")'><img class="play-button" src="assets/img/play.png"/></a>
             <ng-template #stopTrack>
                 <a (click)='changePlayerState("stop")'><img class="play-button" src="assets/img/pause.png"/></a>
             </ng-template>
