@@ -16,7 +16,11 @@ export class MyRoomsComonent implements OnInit {
 
   ngOnInit(): void {
     this.roomsService.getCurrentUserRooms()
-    .subscribe(response => this.rooms = response.rooms)
+    .subscribe(response => {
+      console.log(response.rooms.length)
+      this.rooms = response.rooms
+    })
+    
     //  const mockRooms = [
     //    {
     //      id: "1",

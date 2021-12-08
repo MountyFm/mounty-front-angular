@@ -3,4 +3,9 @@ export interface RoomUser {
     profileId: string
     roomId: string
     type: string
+    isActive: string
+}
+
+export interface RoomUserResponse {
+    roomUser: RoomUser
 }

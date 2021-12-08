@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Injectable, ViewChild } from '@angular/core';
 import { UserProfile } from './dtos/userProfile';
 
 const PLAYER_URL: string = "http://localhost:8080/api/player/playerState"
@@ -16,7 +16,6 @@ export class PlayerService {
   changePlayerState(
     state: string, 
     roomId: string,
-    deviceId?: string, 
     contextUri?: string,
     offset?: number
   ) {
@@ -27,16 +26,15 @@ export class PlayerService {
     }
 
     let userProfile: UserProfile = JSON.parse(userSessionJson)
-      
     
+    var params = `?state=${state}&roomId=${roomId}&tokenKey=${userProfile.id}`
+
+    if(contextUri != null) {
+      params = params + `&contextUri=${contextUri}`
+    }    
     
-    this.httpClient.get(PLAYER_URL, {params:{
-      state: state,
-      roomId: roomId,
-      tokeyKey: userProfile.id,
-      deviceId: deviceId!,
-      contextUri: contextUri!,
-      offset: offset!
-    }}) 
+    this.httpClient.get<any>(PLAYER_URL+params).subscribe(response => {
+      console.log(response)
+    })
   }
 }

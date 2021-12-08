@@ -9,6 +9,7 @@ import { RoomService } from 'src/app/room.service';
 import { ChatService } from 'src/app/services/chat.service';
 import { UserProfileService } from 'src/app/user-profile.service';
 import { Track } from 'src/app/dtos/track';
+import { RoomUserService } from 'src/app/room-user.service';
 
 @Component({
   selector: 'app-room',
@@ -32,9 +33,13 @@ export class RoomComponent implements OnInit,OnDestroy,AfterViewChecked {
   constructor(
     private roomService: RoomService,
     public chatService: ChatService,
-    public playerService: PlayerService
+    public playerService: PlayerService,
+    public roomUserService: RoomUserService
     ) { 
     this.room = this.roomService.returnRoom()
+    this.roomUser = this.roomUserService.returnRoomUser()
+    console.log(this.roomUser)
+
     let userSessionJson = sessionStorage.getItem('USER_PROFILE');
     if(userSessionJson != null) {
       this.userProfile = JSON.parse(userSessionJson);
@@ -52,6 +57,7 @@ export class RoomComponent implements OnInit,OnDestroy,AfterViewChecked {
 
   ngOnDestroy(): void {
     this.chatService.closeWebSocket();
+    this.roomUserService.updateRoomUserStatus(this.roomUser.id, false)
   }
 
   ngAfterViewChecked() {
@@ -62,10 +68,8 @@ export class RoomComponent implements OnInit,OnDestroy,AfterViewChecked {
     console.log(this.userProfile)
     var roomMessageDTO = new RoomMessageDTO(
       this.room.id, 
-      "test",
-      // this.userProfile.id,
-      // this.userProfile.name,
-      "test",
+      this.userProfile.id,
+      this.userProfile.name,
       sendForm.value.message
     )
     this.chatService.sendMessage(roomMessageDTO)
@@ -82,10 +86,11 @@ export class RoomComponent implements OnInit,OnDestroy,AfterViewChecked {
     return (new Date(date)).getHours().toString() + ":" + ((new Date(date)).getMinutes()<10?'0':'') + (new Date(date)).getMinutes().toString();
   }
 
-  changePlayerState(state: string, contextUri?: string, offset?: string) {
+  changePlayerState(state: string, contextUri?: string, offset?: number) {
+    console.log(state)
     if (state == "play") {
       this.isPlay = false
-    } else if (state = "stop") {
+    } else if (state == "stop") {
       this.isPlay = true
     }
 
@@ -106,14 +111,11 @@ export class RoomComponent implements OnInit,OnDestroy,AfterViewChecked {
     )
   }
 
-  play() {
-    if(this.isTrackPlaying){
-      this.isTrackPlaying = false
-      alert("playing")
-    }
-    else{
-      this.isTrackPlaying = true
-      alert("paused")
-    }
+  play(track: Track) {
+    this.playerService.changePlayerState(
+      "play",
+      this.room.id,
+      track.spotifyUri
+    )
   }
 }

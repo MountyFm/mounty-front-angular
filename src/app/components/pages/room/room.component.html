@@ -8,10 +8,10 @@
         <div class="room-block">{{room}}</div>
         <div class="room-block" id = "track">
             <div *ngFor="let track of tracks" id = "room-tracks" class="room-tracks">
-                <a (click) = "play()">
+                <a (click) = "play(track)">
                     <div class = "track-inner">
                         <div class = "track-img">
-                            <img src = "{{track.imageUrl}}" width="50px" height="50px"/>
+                            <img src = "{{track.imageUrl}}"/>
                         </div>
                         <div class = "track-info">
                             <p>{{track.name}}<br><span style="font-size: 11px; color: #BFBFBF;">{{track.artists}}</span></p>
@@ -54,12 +54,10 @@
                 <span class="current-song-author">Mountain Guy</span>
             </div>
         </div>
-        <div class="player-buttons">
+        <div *ngIf="isOwner" class="player-buttons">
             <a (click)='changePlayerState("prev")'><img class="player-button" src="assets/img/prev.png"/></a>
-            <a (click)='changePlayerState("play")'><img class="play-button" src="assets/img/play.png"/></a>
-            <ng-template #stopTrack>
-                <a (click)='changePlayerState("stop")'><img class="play-button" src="assets/img/pause.png"/></a>
-            </ng-template>
+            <a *ngIf="isPlay" (click)='changePlayerState("play")'><img class="play-button" src="assets/img/play.png"/></a>
+            <a *ngIf="!isPlay" (click)='changePlayerState("stop")'><img class="play-button" src="assets/img/pause.png"/></a>
             <a (click)='changePlayerState("next")'><img class="player-button" src="assets/img/next.png"/></a>
         </div>
         <ng-template #notOwner>
