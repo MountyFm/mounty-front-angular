@@ -150,7 +150,7 @@ export class MyRoomsComonent implements OnInit {
 
   onSelect(room: Room) {
     this.roomService.initializeRoom(room)
-    this.roomUserService.getCurrentRoomsUser(room.id, this.userProfile.id)
+    this.roomUserService.getOrAddCurrentRoomsUser(room.id, this.userProfile.id)
   }
 
   buildArr(array: Room[]): Room[][]{
@@ -168,7 +168,7 @@ export class MyRoomsComonent implements OnInit {
     this.roomService.getPrivateRooom(inviteCode).subscribe(response => {
       if(response.room) {
       this.roomService.initializeRoom(response.room)
-      this.roomUserService.getCurrentRoomsUser(response.room.id, this.userProfile.id)
+      this.roomUserService.getOrAddCurrentRoomsUser(response.room.id, this.userProfile.id)
       this.router.navigate([`privateRoom/${response.room.id}`])
       } else {
         alert("Room not found")

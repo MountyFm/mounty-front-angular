@@ -1,6 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { RoomUser, RoomUserResponse } from './dtos/roomUser';
+import { HttpParams } from '@angular/common/http';
+import { GetRoomUsersResponse } from './dtos/roomUser';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -13,11 +16,11 @@ export class RoomUserService {
   roomUser!: RoomUser
 
 
-  public returnRoomUser() {
+  public returnRoomUser(): RoomUser {
     return this.roomUser
   }
 
-  getCurrentRoomsUser(roomId: string, profileId: string) {
+  getOrAddCurrentRoomsUser(roomId: string, profileId: string) {
     return this.httpClient.post<RoomUserResponse>(`${this.baseUrl}/new`, {
       roomId: roomId,
       profileId: profileId
@@ -30,5 +33,11 @@ export class RoomUserService {
       id: id,
       isActive: isActive
     }).subscribe(response => console.log(response))
+  }
+
+  getRoomUsersByRoomId(roomId: string): Observable<GetRoomUsersResponse>  {
+    let httpParams = new HttpParams().append('roomId', roomId)
+
+    return this.httpClient.get<GetRoomUsersResponse>(`${this.baseUrl}`, {params: httpParams})
   }
 }

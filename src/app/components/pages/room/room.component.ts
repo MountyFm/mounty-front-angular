@@ -24,11 +24,13 @@ export class RoomComponent implements OnInit,OnDestroy,AfterViewChecked {
   userProfile!: UserProfile;
   room: Room
 
-  roomUser!: RoomUser;
+  currentRoomUser!: RoomUser;
   isPlay: boolean = true
-  isOwner: boolean = true
+  isOwner: boolean = false
   tracks!: Track[]
   isTrackPlaying: boolean = false
+  roomUsers!: RoomUser[];
+  roomOwner!: RoomUser;
 
   constructor(
     private roomService: RoomService,
@@ -37,13 +39,14 @@ export class RoomComponent implements OnInit,OnDestroy,AfterViewChecked {
     public roomUserService: RoomUserService
     ) { 
     this.room = this.roomService.returnRoom()
-    this.roomUser = this.roomUserService.returnRoomUser()
-    console.log(this.roomUser)
-    if(this.roomUser.type == "CREATOR") {
+    this.currentRoomUser = this.roomUserService.returnRoomUser()
+    console.log(this.currentRoomUser)
+    if(this.currentRoomUser.type == "CREATOR") {
       this.isOwner = true
     } else {
       this.isOwner = false
     }
+    
 
     let userSessionJson = sessionStorage.getItem('USER_PROFILE');
     if(userSessionJson != null) {
@@ -54,7 +57,9 @@ export class RoomComponent implements OnInit,OnDestroy,AfterViewChecked {
 
   ngOnInit(): void {
     this.room = this.roomService.returnRoom()
+    this.currentRoomUser = this.roomUserService.returnRoomUser();
     console.log(this.room)
+    this.getRoomUsers();
     this.getRoomTracks();
     this.chatService.openWebSocket(this.room.id);
     this.scrollToBottom();
@@ -62,7 +67,7 @@ export class RoomComponent implements OnInit,OnDestroy,AfterViewChecked {
 
   ngOnDestroy(): void {
     this.chatService.closeWebSocket();
-    this.roomUserService.updateRoomUserStatus(this.roomUser.id, false)
+    this.roomUserService.updateRoomUserStatus(this.currentRoomUser.id, false)
   }
 
   ngAfterViewChecked() {
@@ -122,5 +127,24 @@ export class RoomComponent implements OnInit,OnDestroy,AfterViewChecked {
       this.room.id,
       track.spotifyUri
     )
+  }
+
+  getRoomUsers() {
+    this.roomUserService.getRoomUsersByRoomId(this.room.id).subscribe(response => {
+      this.roomUsers = response.roomUsers
+      this.findAndInitializeCreator(response.roomUsers);
+    })
+  }
+
+  findAndInitializeCreator(roomUsers: RoomUser[]) {
+    let searchResult =  roomUsers.find(user => user.type == "CREATOR");
+    if(searchResult != null){
+      this.roomOwner = searchResult;
+      if(this.roomOwner.id == this.currentRoomUser.id){
+        this.isOwner = true;
+      }
+    }
+    else
+      throw "owner not found!"
   }
 }

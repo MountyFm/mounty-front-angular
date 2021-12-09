@@ -46,6 +46,10 @@ export class RoomService {
   }
 
   public getPrivateRooom(inviteCode: string) {
-    return this.httpClient.get<RoomResponse>(this.baseUrl, {params: {inviteCode: inviteCode}})
-  }
+    return this.httpClient.get<RoomResponse>(this.baseUrl, {params: {inviteCode: inviteCode}})}
+    
+  // public getCurrentlyPlayingTracj() {
+
+  // }
+  
 }

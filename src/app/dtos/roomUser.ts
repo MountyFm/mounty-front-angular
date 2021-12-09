@@ -9,3 +9,7 @@ export interface RoomUser {
 export interface RoomUserResponse {
     roomUser: RoomUser
 }
+
+export interface GetRoomUsersResponse {
+    roomUsers: RoomUser[]
+}
