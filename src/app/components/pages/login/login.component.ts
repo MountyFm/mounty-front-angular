@@ -53,7 +53,7 @@ export class LoginComponent implements OnInit {
   }
 
   getUserProile(tokenKey: string) {
-    this.userProfileService.getUserProfile(tokenKey).subscribe(response => 
+    this.userProfileService.addOrGetUserProfile(tokenKey).subscribe(response => 
       {
         this.storageService.saveUserProfile(response.userProfile);
         window.location.href = '/explore'

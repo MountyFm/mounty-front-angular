@@ -31,12 +31,14 @@ export class RoomComponent implements OnInit,OnDestroy,AfterViewChecked {
   isTrackPlaying: boolean = false
   roomUsers!: RoomUser[];
   roomOwner!: RoomUser;
+  ownerProfile!: UserProfile;
 
   constructor(
     private roomService: RoomService,
     public chatService: ChatService,
     public playerService: PlayerService,
-    public roomUserService: RoomUserService
+    public roomUserService: RoomUserService,
+    public userProfileService: UserProfileService,
     ) { 
     this.room = this.roomService.returnRoom()
     this.currentRoomUser = this.roomUserService.returnRoomUser()
@@ -140,11 +142,16 @@ export class RoomComponent implements OnInit,OnDestroy,AfterViewChecked {
     let searchResult =  roomUsers.find(user => user.type == "CREATOR");
     if(searchResult != null){
       this.roomOwner = searchResult;
+      this.getOwnerProfileById(searchResult.profileId);
       if(this.roomOwner.id == this.currentRoomUser.id){
         this.isOwner = true;
       }
     }
     else
       throw "owner not found!"
+  }
+
+  getOwnerProfileById(id: string) {
+    this.userProfileService.getUserProfileById(id).subscribe(response => this.ownerProfile = response.userProfile);
   }
 }

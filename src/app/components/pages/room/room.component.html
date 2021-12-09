@@ -9,15 +9,15 @@
             <div class = "room-info">
                 <div class = "image-and-owner">
                     <div class = "img">
-
+                        <img src = "{{room.imageUrl}}" width="187px" height="187px"/>
                     </div>
                     <div class = "owner">
-                        <p>roomCreator.name</p>
+                        <p>Owner: @{{ownerProfile.name}}</p>
                     </div>
                 </div>
-                <div class = "">
+                <div class = "current-track">
                     <div>
-
+                        
                     </div>
                     <div>
                         <div>
@@ -30,7 +30,7 @@
                 </div>
                 <div class = "room-privacy">
                     <p>Make room private:</p>
-                    <div class = "invite-input-btn">
+                    <div class = "input-and-switch">
                         <input type="text" id="invite-code" name="invite-code"><br>
                         <label class="switch">
                             <input type="checkbox">

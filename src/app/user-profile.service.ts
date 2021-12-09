@@ -12,10 +12,13 @@ export class UserProfileService {
 
   BASE_URL = "http://127.0.0.1:8080/api/profile"
 
-  getUserProfile(tokenKey: string) {
+  addOrGetUserProfile(tokenKey: string) {
     return this.httpClient.post<UserProfileResponse>(`${this.BASE_URL}/new`, {
       tokenKey: tokenKey
     })
   }
 
+  getUserProfileById(id: string) {
+    return this.httpClient.get<UserProfileResponse>(`${this.BASE_URL}/id/${id}`)
+  }
 }
