@@ -141,7 +141,7 @@ export class ExploreComponent implements OnInit{
 
   onSelect(room: Room) {
     this.roomService.initializeRoom(room)
-    this.roomUserService.getCurrentRoomsUser(room.id, this.userProfile.id)
+    this.roomUserService.getOrAddCurrentRoomsUser(room.id, this.userProfile.id)
   }
 
   buildArr(array: Room[]): Room[][]{

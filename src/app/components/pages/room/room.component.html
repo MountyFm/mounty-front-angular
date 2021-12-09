@@ -5,7 +5,41 @@
         <span class="room-title">Chat</span>
     </div>
     <div class="room-blocks">
-        <div class="room-block">{{room}}</div>
+        <div class="room-block">
+            <div class = "room-info">
+                <div class = "image-and-owner">
+                    <div class = "img">
+
+                    </div>
+                    <div class = "owner">
+                        <p>roomCreator.name</p>
+                    </div>
+                </div>
+                <div class = "">
+                    <div>
+
+                    </div>
+                    <div>
+                        <div>
+
+                        </div>
+                        <div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class = "room-privacy">
+                    <p>Make room private:</p>
+                    <div class = "invite-input-btn">
+                        <input type="text" id="invite-code" name="invite-code"><br>
+                        <label class="switch">
+                            <input type="checkbox">
+                            <span class="slider round"></span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
         <div class="room-block" id = "track">
             <div *ngFor="let track of tracks" id = "room-tracks" class="room-tracks">
                 <a (click) = "play(track)">

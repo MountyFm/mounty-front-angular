@@ -44,4 +44,8 @@ export class RoomService {
 
     return this.httpClient.get<RoomAndTracksResponse>(roomTracksUrl, { params: httpParams})
   }
+
+  public getCurrentlyPlayingTracj() {
+
+  }
 }
