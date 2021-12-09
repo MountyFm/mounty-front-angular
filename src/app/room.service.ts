@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Room } from './dtos/room';
+import { Room, RoomResponse } from './dtos/room';
 import { HttpClient } from '@angular/common/http';
 import { RoomAndTracksResponse } from './dtos/roomAndTracks';
 import { RoomsResponse } from './dtos/room';
@@ -43,5 +43,9 @@ export class RoomService {
 
 
     return this.httpClient.get<RoomAndTracksResponse>(roomTracksUrl, { params: httpParams})
+  }
+
+  public getPrivateRooom(inviteCode: string) {
+    return this.httpClient.get<RoomResponse>(this.baseUrl, {params: {inviteCode: inviteCode}})
   }
 }

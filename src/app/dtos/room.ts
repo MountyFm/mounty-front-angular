@@ -2,6 +2,10 @@ export interface RoomsResponse {
     rooms: Room[]
 }
 
+export interface RoomResponse {
+    room: Room
+}
+
 export interface Room {
     id: string
     title: string

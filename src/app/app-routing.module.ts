@@ -12,6 +12,7 @@ const routes: Routes = [
   { path: 'my-rooms', component: MyRoomsComonent},  
   { path: 'my-rooms/room/:roomId', component: RoomComponent},
   { path: 'login', component: LoginComponent, pathMatch: 'full'},
+  { path: 'privateRoom/:roomId', component: RoomComponent}
 ];
 
 @NgModule({

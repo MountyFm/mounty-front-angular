@@ -4,8 +4,8 @@
             <form class = "invite-form">
                 <label for="invite-label">Join the room via invite code:</label><br>
                 <div class = "invite-input-btn">
-                    <input type="text" id="invite-code" name="invite-code"><br>
-                    <button>Join</button>
+                    <input type="text" id="invite-code" name="invite-code" [(ngModel)]="inviteCode"><br>
+                    <button (click)="joinPrivateRoom(inviteCode)">Join</button>
                 </div>
             </form>
         </div>
@@ -14,14 +14,14 @@
         <p class="room-p">My Rooms</p>
         <hr>
     </div>
-    <div class = "lower-div">
-        <div *ngFor="let room of rooms" id = "my-rooms" class="room">
+    <div class = "lower-div" fxLayoutGap="1em" fxLayout="row wrap">
+        <div  fxFlex="0 0 31%" fxLayoutAlign="center" *ngFor="let room of rooms" class="room">
             <a [routerLink] = "['room/{{room.id}}']" (click) = "onSelect(room)">
                 <div class="room-inner">
                     <div class = "room-img">
-                        <img src="{{room.imageUrl}}" width="90px" height="90px"/>
+                        <img src="{{room.imageUrl}}"/>
                     </div>
-                    <div id = "my-rooms" class="room-title">
+                    <div id = "explore" class="room-title">
                       <p>{{room.title}}</p>  
                     </div>
                 </div>

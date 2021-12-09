@@ -39,6 +39,11 @@ export class RoomComponent implements OnInit,OnDestroy,AfterViewChecked {
     this.room = this.roomService.returnRoom()
     this.roomUser = this.roomUserService.returnRoomUser()
     console.log(this.roomUser)
+    if(this.roomUser.type == "CREATOR") {
+      this.isOwner = true
+    } else {
+      this.isOwner = false
+    }
 
     let userSessionJson = sessionStorage.getItem('USER_PROFILE');
     if(userSessionJson != null) {

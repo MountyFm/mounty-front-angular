@@ -12,6 +12,8 @@ import { AuthService } from './services/auth/auth.service';
 import { HttpClientModule } from '@angular/common/http';
 import { RoomComponent } from './components/pages/room/room.component';
 import { ChatService } from './services/chat.service';
+import { FlexLayoutModule } from '@angular/flex-layout';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -25,7 +27,8 @@ import { ChatService } from './services/chat.service';
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    FlexLayoutModule
   ],
   providers: [AuthService, ChatService],
   bootstrap: [AppComponent]

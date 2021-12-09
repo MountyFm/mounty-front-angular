@@ -13,8 +13,8 @@
         <p class="room-p">Explore Rooms</p>
         <hr>
     </div>
-    <div class = "lower-div">
-        <div *ngFor="let room of rooms" class="room">
+    <div class = "lower-div" fxLayoutGap="1em" fxLayout="row wrap">
+        <div  fxFlex="0 0 31%" fxLayoutAlign="center" *ngFor="let room of rooms" class="room">
             <a [routerLink] = "['room/{{room.id}}']" (click) = "onSelect(room)">
                 <div class="room-inner">
                     <div class = "room-img">
