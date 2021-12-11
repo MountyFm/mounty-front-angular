@@ -21,17 +21,18 @@ export class RoomComponent implements OnInit,OnDestroy,AfterViewChecked {
   @ViewChild('scrollChat')
   private scrollContainer!: ElementRef;
 
-  userProfile!: UserProfile;
-  room: Room
+  room: Room;
+  roomUsers!: RoomUser[];
+  tracks!: Track[]
 
+  currentUserProfile!: UserProfile;
   currentRoomUser!: RoomUser;
+
+  ownerProfile!: UserProfile;
+
   isPlay: boolean = true
   isOwner: boolean = false
-  tracks!: Track[]
   isTrackPlaying: boolean = false
-  roomUsers!: RoomUser[];
-  roomOwner!: RoomUser;
-  ownerProfile!: UserProfile;
 
   constructor(
     private roomService: RoomService,
@@ -41,27 +42,17 @@ export class RoomComponent implements OnInit,OnDestroy,AfterViewChecked {
     public userProfileService: UserProfileService,
     ) { 
     this.room = this.roomService.returnRoom()
-    this.currentRoomUser = this.roomUserService.returnRoomUser()
-    console.log(this.currentRoomUser)
-    if(this.currentRoomUser.type == "CREATOR") {
-      this.isOwner = true
-    } else {
-      this.isOwner = false
-    }
-    
 
     let userSessionJson = sessionStorage.getItem('USER_PROFILE');
     if(userSessionJson != null) {
-      this.userProfile = JSON.parse(userSessionJson);
+      this.currentUserProfile = JSON.parse(userSessionJson);
     }
     console.log(this.room)
   }
 
   ngOnInit(): void {
-    this.room = this.roomService.returnRoom()
-    this.currentRoomUser = this.roomUserService.returnRoomUser();
-    console.log(this.room)
-    this.getRoomUsers();
+    this.getCurrentRoomUser();
+    this.getRoomUsersAndInitializeOwner();
     this.getRoomTracks();
     this.chatService.openWebSocket(this.room.id);
     this.scrollToBottom();
@@ -77,11 +68,11 @@ export class RoomComponent implements OnInit,OnDestroy,AfterViewChecked {
   }
 
   sendMessage(sendForm: NgForm) {
-    console.log(this.userProfile)
+    console.log(this.currentUserProfile)
     var roomMessageDTO = new RoomMessageDTO(
       this.room.id, 
-      this.userProfile.id,
-      this.userProfile.name,
+      this.currentUserProfile.id,
+      this.currentUserProfile.name,
       sendForm.value.message
     )
     this.chatService.sendMessage(roomMessageDTO)
@@ -116,6 +107,10 @@ export class RoomComponent implements OnInit,OnDestroy,AfterViewChecked {
     })
   }
 
+  getCurrentRoomUser(){
+    this.roomUserService.getOrAddCurrentRoomsUser(this.room.id, this.currentUserProfile.id).subscribe(r => this.currentRoomUser = r.roomUser);
+  }
+
   getRoomTracks() {
     this.roomService.getRoomTracks(this.room.id).subscribe(response => 
       {
@@ -134,24 +129,28 @@ export class RoomComponent implements OnInit,OnDestroy,AfterViewChecked {
     )
   }
 
-  getRoomUsers() {
+  getRoomUsersAndInitializeOwner() {
     this.roomUserService.getRoomUsersByRoomId(this.room.id).subscribe(response => {
-      this.roomUsers = response.roomUsers
-      this.findAndInitializeCreator(response.roomUsers);
+      this.roomUsers = response.roomUsers;
+      this.initializeOwner(response.roomUsers);
     })
   }
 
-  findAndInitializeCreator(roomUsers: RoomUser[]) {
-    let searchResult =  roomUsers.find(user => user.type == "CREATOR");
-    if(searchResult != null){
-      this.roomOwner = searchResult;
-      this.getOwnerProfileById(searchResult.profileId);
-      if(this.roomOwner.id == this.currentRoomUser.id){
-        this.isOwner = true;
+  initializeOwner(roomUsers: RoomUser[]) {
+    if(this.currentRoomUser.type == "CREATOR") {
+      this.isOwner = true;
+      this.ownerProfile = this.currentUserProfile
+    } else {
+      let searchResult =  roomUsers.find(user => user.type == "CREATOR");
+      if(searchResult != null){
+        this.getOwnerProfileById(searchResult.profileId);
+        if(searchResult.id == this.currentRoomUser.id){
+          this.isOwner = true;
+        }
       }
+      else
+        throw "owner not found!"
     }
-    else
-      throw "owner not found!"
   }
 
   getOwnerProfileById(id: string) {

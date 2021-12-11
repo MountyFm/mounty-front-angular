@@ -4,6 +4,7 @@ import { RoomUser, RoomUserResponse } from './dtos/roomUser';
 import { HttpParams } from '@angular/common/http';
 import { GetRoomUsersResponse } from './dtos/roomUser';
 import { Observable } from 'rxjs';
+import { ThisReceiver } from '@angular/compiler';
 
 @Injectable({
   providedIn: 'root'
@@ -20,12 +21,15 @@ export class RoomUserService {
     return this.roomUser
   }
 
-  getOrAddCurrentRoomsUser(roomId: string, profileId: string) {
+  public initializeRoomUser(roomUser: RoomUser) {
+    this.roomUser = roomUser;
+  }
+
+  getOrAddCurrentRoomsUser(roomId: string, profileId: string): Observable<RoomUserResponse> {
     return this.httpClient.post<RoomUserResponse>(`${this.baseUrl}/new`, {
       roomId: roomId,
       profileId: profileId
-    }).subscribe(response => 
-      this.roomUser = response.roomUser)
+    })
   }
 
   updateRoomUserStatus(id: string, isActive: boolean) {

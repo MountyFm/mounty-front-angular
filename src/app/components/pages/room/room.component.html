@@ -43,7 +43,17 @@
         </div>
         <div class="room-block" id = "track">
             <div *ngFor="let track of tracks" id = "room-tracks" class="room-tracks">
-                <a (click) = "play(track)" style="cursor: pointer;">
+                <a *ngIf = "isOwner" (click) = "play(track)" style="cursor: pointer;">
+                    <div class = "track-inner">
+                        <div class = "track-img">
+                            <img src = "{{track.imageUrl}}"/>
+                        </div>
+                        <div class = "track-info">
+                            <p>{{track.name}}<br><span style="font-size: 11px; color: #BFBFBF;">{{track.artists}}</span></p>
+                        </div>
+                    </div>
+                </a>
+                <a *ngIf = "!isOwner">
                     <div class = "track-inner">
                         <div class = "track-img">
                             <img src = "{{track.imageUrl}}"/>

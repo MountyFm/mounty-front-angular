@@ -150,7 +150,6 @@ export class MyRoomsComonent implements OnInit {
 
   onSelect(room: Room) {
     this.roomService.initializeRoom(room)
-    this.roomUserService.getOrAddCurrentRoomsUser(room.id, this.userProfile.id)
   }
 
   buildArr(array: Room[]): Room[][]{
