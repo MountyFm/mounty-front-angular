@@ -10,10 +10,12 @@ export class StorageService {
   constructor() { }
 
   saveAccessToken(accessToken: AccessToken) {
+    sessionStorage.removeItem('ACCESS_TOKEN');
     sessionStorage.setItem('ACCESS_TOKEN', JSON.stringify(accessToken));
   }
 
   saveUserProfile(userProfile: UserProfile) {
+    sessionStorage.removeItem('USER_PROFILE');
     sessionStorage.setItem("USER_PROFILE", JSON.stringify(userProfile))
   }
 

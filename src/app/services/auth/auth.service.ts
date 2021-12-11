@@ -28,7 +28,7 @@ export class AuthService {
 
   refreshToken(requestBody: RefreshAccessTokenRequest): Observable<AccessToken> {
     return this.httpClient.post<AccessToken>(`${this.BASE_URL}/refresh-access-token`, {
-      requestBody
+      refreshToken: requestBody.refreshToken
     })
   }
 }

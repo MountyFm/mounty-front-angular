@@ -9,10 +9,11 @@ import { ExploreComponent } from './components/pages/explore/explore.component';
 import { LoginComponent } from './components/pages/login/login.component';
 import { MyRoomsComonent } from './components/pages/my-rooms/my-rooms.component';
 import { AuthService } from './services/auth/auth.service';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { RoomComponent } from './components/pages/room/room.component';
 import { ChatService } from './services/chat.service';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { GlobalHttpInterceptor } from 'src/http.interceptor';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,15 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     FormsModule,
     FlexLayoutModule
   ],
-  providers: [AuthService, ChatService],
+  providers: [
+    AuthService, 
+    ChatService, 
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: GlobalHttpInterceptor,
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

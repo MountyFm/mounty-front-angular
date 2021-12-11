@@ -10,8 +10,11 @@ export class GetAccessTokenRequest {
         ){}
 }
 
-export interface RefreshAccessTokenRequest {
-    refreshToken: string,
+export class RefreshAccessTokenRequest {
+    constructor(
+        public refreshToken: string,
+       
+       ){}
 }
 
 export interface AccessToken {
