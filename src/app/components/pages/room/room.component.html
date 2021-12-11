@@ -9,7 +9,8 @@
             <div class = "room-info">
                 <div class = "image-and-owner">
                     <div class = "img">
-                        <img src = "{{room.imageUrl}}" width="187px" height="187px"/>
+                        <img *ngIf = "ownerProfile.avatarUrl != null" src = "{{ownerProfile.avatarUrl}}" width="187px" height="187px"/>
+                        <img *ngIf = "ownerProfile.avatarUrl == null" src = "{{room.imageUrl}}" width="187px" height="187px"/>
                     </div>
                     <div class = "owner">
                         <p>Owner: @{{ownerProfile.name}}</p>

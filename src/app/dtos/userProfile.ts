@@ -8,7 +8,8 @@ export class UserProfile {
         public id: string,
         public name: string,
         public email: string,
-        public spotifyUri: String,
-        public createdAt: String
+        public spotifyUri: string,
+        public createdAt: string,
+        public avatarUrl?: string,
     ) {}
 }
