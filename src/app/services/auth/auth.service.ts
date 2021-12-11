@@ -12,7 +12,7 @@ export class AuthService {
 
   BASE_URL = "http://127.0.0.1:8081/spotify-auth-adapter"
 
-  REDIRECT_URL = "https://api-university.com/"
+  REDIRECT_URL = "http://localhost:36329/login"
 
   getAuthUrl(): Observable<GetAuthUrlResponse> {
     let httpParams = new HttpParams().append('redirectUri', this.REDIRECT_URL)
