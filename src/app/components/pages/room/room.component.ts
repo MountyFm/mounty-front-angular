@@ -100,18 +100,20 @@ export class RoomComponent implements OnInit,OnDestroy,AfterViewChecked {
 
   changePlayerState(state: string, contextUri?: string, offset?: number) {
     console.log(state)
-    if (state == "play") {
-      this.isPlay = false
-    } else if (state == "stop") {
-      this.isPlay = true
-    }
 
     this.playerService.changePlayerState(
       state = state,
       this.room.id,
       contextUri = contextUri,
       offset = offset
-    )
+    ).subscribe(response => {
+      if (state == "play") {
+        this.isPlay = false
+      } else if (state == "stop") {
+        this.isPlay = true
+      }
+      console.log(response);
+    })
   }
 
   getRoomTracks() {
@@ -124,10 +126,11 @@ export class RoomComponent implements OnInit,OnDestroy,AfterViewChecked {
   }
 
   play(track: Track) {
-    this.playerService.changePlayerState(
+    let trackPosition = this.tracks.indexOf(track);
+    this.changePlayerState(
       "play",
-      this.room.id,
-      track.spotifyUri
+      this.room.spotifyUri,
+      trackPosition,
     )
   }
 

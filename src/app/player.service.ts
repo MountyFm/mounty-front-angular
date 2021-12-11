@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, ViewChild } from '@angular/core';
+import { Observable } from 'rxjs';
 import { UserProfile } from './dtos/userProfile';
 
 const PLAYER_URL: string = "http://localhost:8080/api/player/playerState"
@@ -18,7 +19,7 @@ export class PlayerService {
     roomId: string,
     contextUri?: string,
     offset?: number
-  ) {
+  ): Observable<any> {
     let userSessionJson = sessionStorage.getItem("USER_PROFILE");
 
     if(userSessionJson == null){
@@ -31,10 +32,12 @@ export class PlayerService {
 
     if(contextUri != null) {
       params = params + `&contextUri=${contextUri}`
-    }    
+    }
+
+    if(offset != null) {
+      params = params + `&offset=${offset}`
+    }
     
-    this.httpClient.get<any>(PLAYER_URL+params).subscribe(response => {
-      console.log(response)
-    })
+    return this.httpClient.get<any>(PLAYER_URL+params);
   }
 }
