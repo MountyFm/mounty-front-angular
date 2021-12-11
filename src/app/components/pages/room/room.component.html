@@ -43,7 +43,7 @@
         </div>
         <div class="room-block" id = "track">
             <div *ngFor="let track of tracks" id = "room-tracks" class="room-tracks">
-                <a (click) = "play(track)">
+                <a (click) = "play(track)" style="cursor: pointer;">
                     <div class = "track-inner">
                         <div class = "track-img">
                             <img src = "{{track.imageUrl}}"/>
