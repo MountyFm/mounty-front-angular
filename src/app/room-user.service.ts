@@ -39,8 +39,10 @@ export class RoomUserService {
     }).subscribe(response => console.log(response))
   }
 
-  getRoomUsersByRoomId(roomId: string): Observable<GetRoomUsersResponse>  {
+  getRoomUsers(roomId: string, type: string): Observable<GetRoomUsersResponse>  {
     let httpParams = new HttpParams().append('roomId', roomId)
+
+    if(type != undefined) httpParams.append('type', type)
 
     return this.httpClient.get<GetRoomUsersResponse>(`${this.baseUrl}`, {params: httpParams})
   }

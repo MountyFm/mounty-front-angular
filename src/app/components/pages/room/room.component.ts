@@ -51,8 +51,7 @@ export class RoomComponent implements OnInit,OnDestroy,AfterViewChecked {
   }
 
   ngOnInit(): void {
-    this.getCurrentRoomUser();
-    this.getRoomUsersAndInitializeOwner();
+    this.getCurrentRoomUserAndInitializeOwner();
     this.getRoomTracks();
     this.chatService.openWebSocket(this.room.id);
     this.scrollToBottom();
@@ -107,8 +106,11 @@ export class RoomComponent implements OnInit,OnDestroy,AfterViewChecked {
     })
   }
 
-  getCurrentRoomUser(){
-    this.roomUserService.getOrAddCurrentRoomsUser(this.room.id, this.currentUserProfile.id).subscribe(r => this.currentRoomUser = r.roomUser);
+  getCurrentRoomUserAndInitializeOwner(){
+    this.roomUserService.getOrAddCurrentRoomsUser(this.room.id, this.currentUserProfile.id).subscribe(r => {
+      this.currentRoomUser = r.roomUser
+      this.initializeOwner();
+    });
   }
 
   getRoomTracks() {
@@ -129,27 +131,12 @@ export class RoomComponent implements OnInit,OnDestroy,AfterViewChecked {
     )
   }
 
-  getRoomUsersAndInitializeOwner() {
-    this.roomUserService.getRoomUsersByRoomId(this.room.id).subscribe(response => {
-      this.roomUsers = response.roomUsers;
-      this.initializeOwner(response.roomUsers);
-    })
-  }
-
-  initializeOwner(roomUsers: RoomUser[]) {
+  initializeOwner() {
     if(this.currentRoomUser.type == "CREATOR") {
       this.isOwner = true;
       this.ownerProfile = this.currentUserProfile
     } else {
-      let searchResult =  roomUsers.find(user => user.type == "CREATOR");
-      if(searchResult != null){
-        this.getOwnerProfileById(searchResult.profileId);
-        if(searchResult.id == this.currentRoomUser.id){
-          this.isOwner = true;
-        }
-      }
-      else
-        throw "owner not found!"
+      this.roomUserService.getRoomUsers(this.room.id, "CREATOR").subscribe(response => this.getOwnerProfileById(response.roomUsers[0].profileId));
     }
   }
 
