@@ -25,7 +25,13 @@ export class RoomComponent implements OnInit,OnDestroy,AfterViewChecked {
   roomUsers!: RoomUser[];
   inviteCode: string = "";
 
+  currentUserProfile!: UserProfile;
+  currentRoomUser!: RoomUser;
+
+  ownerProfile!: UserProfile;
+
   isPlay: boolean = true
+  isOwner: boolean = false
   isTrackPlaying: boolean = false
   isPrivate: boolean = false
   isChecked: boolean = false
@@ -48,20 +54,20 @@ export class RoomComponent implements OnInit,OnDestroy,AfterViewChecked {
     }
     let userSessionJson = sessionStorage.getItem('USER_PROFILE');
     if(userSessionJson != null) {
-      this.roomUserService.currentUserProfile = JSON.parse(userSessionJson);
+      this.currentUserProfile = JSON.parse(userSessionJson);
     }
     console.log(this.room)
   }
 
   ngOnInit(): void {
+    this.getCurrentRoomUserAndInitializeOwner();
     this.chatService.openWebSocket(this.room.id);
     this.scrollToBottom();
   }
 
   ngOnDestroy(): void {
     this.chatService.closeWebSocket();
-    this.roomUserService.updateRoomUserStatus(this.roomUserService.currentRoomUser.id, false)
-    this.roomService.tracks = []
+    this.roomUserService.updateRoomUserStatus(this.currentRoomUser.id, false)
   }
 
   ngAfterViewChecked() {
@@ -69,11 +75,11 @@ export class RoomComponent implements OnInit,OnDestroy,AfterViewChecked {
   }
 
   sendMessage(sendForm: NgForm) {
-    console.log(this.roomUserService.currentUserProfile)
+    console.log(this.currentUserProfile)
     var roomMessageDTO = new RoomMessageDTO(
       this.room.id, 
-      this.roomUserService.currentUserProfile.id,
-      this.roomUserService.currentUserProfile.name,
+      this.currentUserProfile.id,
+      this.currentUserProfile.name,
       sendForm.value.message
     )
     this.chatService.sendMessage(roomMessageDTO)
@@ -108,6 +114,14 @@ export class RoomComponent implements OnInit,OnDestroy,AfterViewChecked {
     })
   }
 
+  getCurrentRoomUserAndInitializeOwner(){
+    this.roomUserService.getOrAddCurrentRoomsUser(this.room.id, this.currentUserProfile.id).subscribe(r => {
+      this.currentRoomUser = r.roomUser
+      this.initializeOwner();
+    });
+  }
+
+  
 
   play(track: Track) {
     let trackPosition = this.roomService.tracks.indexOf(track);
@@ -116,6 +130,19 @@ export class RoomComponent implements OnInit,OnDestroy,AfterViewChecked {
       this.room.spotifyUri,
       trackPosition,
     )
+  }
+
+  initializeOwner() {
+    if(this.currentRoomUser.type == "CREATOR") {
+      this.isOwner = true;
+      this.ownerProfile = this.currentUserProfile
+    } else {
+      this.roomUserService.getRoomUsers(this.room.id, "CREATOR").subscribe(response => this.getOwnerProfileById(response.roomUsers[0].profileId));
+    }
+  }
+
+  getOwnerProfileById(id: string) {
+    this.userProfileService.getUserProfileById(id).subscribe(response => this.ownerProfile = response.userProfile);
   }
 
   makeRoomPrivate(inviteCode: string) {

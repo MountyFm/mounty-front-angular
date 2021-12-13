@@ -8,7 +8,6 @@ import { AccessToken } from './dtos/auth';
 import { StorageService } from './storage.service';
 import { HttpParams } from '@angular/common/http';
 import { Track } from './dtos/track';
-import { RoomUserService } from './room-user.service';
 
 @Injectable({
   providedIn: 'root'
@@ -21,14 +20,12 @@ export class RoomService {
   tracks!: Track[]
 
   constructor(private httpClient: HttpClient,
-     private storageService: StorageService,
-     private roomUserService: RoomUserService) { }
+     private storageService: StorageService) { }
 
 
   public initializeRoom(room: Room) {
     this.room = room
     this.getRoomTracksForRoom()
-    this.roomUserService.getCurrentRoomUserAndInitializeOwner(room)
   }
 
   public returnRoom() {
