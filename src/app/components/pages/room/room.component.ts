@@ -66,6 +66,7 @@ export class RoomComponent implements OnInit,OnDestroy,AfterViewChecked {
   }
 
   ngOnDestroy(): void {
+    this.roomService.tracks = [];
     this.chatService.closeWebSocket();
     this.roomUserService.updateRoomUserStatus(this.currentRoomUser.id, false)
   }
