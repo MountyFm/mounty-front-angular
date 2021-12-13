@@ -6,6 +6,14 @@ export interface RoomResponse {
     room: Room
 }
 
+export interface UpdateRoomResponse {
+    updated: boolean
+}
+
+export interface MakeRoomPrivateResponse {
+    inviteCode: string
+}
+
 export interface Room {
     id: string
     title: string

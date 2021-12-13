@@ -33,133 +33,10 @@ export class MyRoomsComonent implements OnInit {
       console.log(response.rooms.length)
       this.rooms = response.rooms
     })
-    
-    //  const mockRooms = [
-    //    {
-    //      id: "1",
-    //      title: "Bobby's room",
-    //      status: "active",
-    //      isPrivate: false,
-    //      imageUrl: "test",
-    //      spotifyUri: "test",
-    //      createdAt: new Date()
-    //    },
-    //    {
-    //      id: "1",
-    //      title: "test",
-    //      status: "active",
-    //      isPrivate: false,
-    //      imageUrl: "test",
-    //      spotifyUri: "test",
-    //      createdAt: new Date()
-    //    },
-    //    {
-    //      id: "1",
-    //      title: "test",
-    //      status: "active",
-    //      isPrivate: false,
-    //      imageUrl: "test",
-    //      spotifyUri: "test",
-    //      createdAt: new Date()
-    //    },
-    //    {
-    //      id: "1",
-    //      title: "test",
-    //      status: "active",
-    //      isPrivate: false,
-    //      imageUrl: "test",
-    //      spotifyUri: "test",
-    //      createdAt: new Date()
-    //    },
-    //    {
-    //      id: "1",
-    //      title: "test",
-    //      status: "active",
-    //      isPrivate: false,
-    //      imageUrl: "test",
-    //      spotifyUri: "test",
-    //      createdAt: new Date()
-    //    },
-    //    {
-    //      id: "1",
-    //      title: "test",
-    //      status: "active",
-    //      isPrivate: false,
-    //      imageUrl: "test",
-    //      spotifyUri: "test",
-    //      createdAt: new Date()
-    //    },
-    //    {
-    //      id: "1",
-    //      title: "test",
-    //      status: "active",
-    //      isPrivate: false,
-    //      imageUrl: "test",
-    //      spotifyUri: "test",
-    //      createdAt: new Date()
-    //    },
-    //    {
-    //      id: "1",
-    //      title: "test",
-    //      status: "active",
-    //      isPrivate: false,
-    //      imageUrl: "test",
-    //      spotifyUri: "test",
-    //      createdAt: new Date()
-    //    },
-    //    {
-    //      id: "1",
-    //      title: "test",
-    //      status: "active",
-    //      isPrivate: false,
-    //      imageUrl: "test",
-    //      spotifyUri: "test",
-    //      createdAt: new Date()
-    //    },
-    //  {
-    //    id: "1",
-    //    title: "test",
-    //    status: "active",
-    //    isPrivate: false,
-    //    imageUrl: "test",
-    //    spotifyUri: "test",
-    //    createdAt: new Date()
-    //  },
-    //  {
-    //    id: "1",
-    //    title: "test",
-    //    status: "active",
-    //    isPrivate: false,
-    //    imageUrl: "test",
-    //    spotifyUri: "test",
-    //    createdAt: new Date()
-    //  },
-    //  {
-    //    id: "1",
-    //    title: "test",
-    //    status: "active",
-    //    isPrivate: false,
-    //    imageUrl: "test",
-    //    spotifyUri: "test",
-    //    createdAt: new Date()
-    //   },
-    //  ]
-
-    //  this.rooms = mockRooms
   }
 
   onSelect(room: Room) {
     this.roomService.initializeRoom(room)
-  }
-
-  buildArr(array: Room[]): Room[][]{
-    var i,j, temporary, chunk = 4;
-    var res: Room[][] = [];
-    for (j = 0,i = array.length; j < i; j += chunk) {
-      temporary = array.slice(j, j + chunk);
-      res.push(temporary);
-    }
-    return res[0].map((col, i) => res.map(row => row[i]));
   }
 
   joinPrivateRoom(inviteCode: string) {
@@ -172,7 +49,8 @@ export class MyRoomsComonent implements OnInit {
       } else {
         alert("Room not found")
       }
-    }
+    },
+    error => alert("Room not found")
     )
   }
 }

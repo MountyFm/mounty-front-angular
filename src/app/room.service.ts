@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Room, RoomResponse } from './dtos/room';
+import { MakeRoomPrivateResponse, Room, RoomResponse, UpdateRoomResponse } from './dtos/room';
 import { HttpClient } from '@angular/common/http';
 import { RoomAndTracksResponse } from './dtos/roomAndTracks';
 import { RoomsResponse } from './dtos/room';
@@ -7,6 +7,8 @@ import { Observable } from 'rxjs';
 import { AccessToken } from './dtos/auth';
 import { StorageService } from './storage.service';
 import { HttpParams } from '@angular/common/http';
+import { Track } from './dtos/track';
+import { RoomUserService } from './room-user.service';
 
 @Injectable({
   providedIn: 'root'
@@ -16,16 +18,30 @@ export class RoomService {
   private baseUrl: string = "http://localhost:8080/api/rooms"
 
   room!: Room;
+  tracks!: Track[]
 
-  constructor(private httpClient: HttpClient, private storageService: StorageService) { }
+  constructor(private httpClient: HttpClient,
+     private storageService: StorageService,
+     private roomUserService: RoomUserService) { }
 
 
   public initializeRoom(room: Room) {
     this.room = room
+    this.getRoomTracksForRoom()
+    this.roomUserService.getCurrentRoomUserAndInitializeOwner(room)
   }
 
   public returnRoom() {
     return this.room
+  }
+
+  private getRoomTracksForRoom() {
+    this.getRoomTracks(this.room.id).subscribe(response => 
+      {
+        this.room = response.room
+        this.tracks = response.tracks
+      }
+    )
   }
 
   public getRoomTracks(roomId: string, limit?: number, offset?: number): Observable<RoomAndTracksResponse> {
@@ -47,7 +63,23 @@ export class RoomService {
 
   public getPrivateRooom(inviteCode: string) {
     return this.httpClient.get<RoomResponse>(this.baseUrl, {params: {inviteCode: inviteCode}})}
+  
     
+  public makeRoomPrivate(inviteCode: string) {
+    return this.httpClient.put<MakeRoomPrivateResponse>(this.baseUrl+"/private",{
+      roomId: this.room.id,
+      inviteCode: inviteCode,
+    })
+  }  
+
+  public makeRoomPublic() {
+    return this.httpClient.put<UpdateRoomResponse>(this.baseUrl+"/update",{
+      id: this.room.id,
+      inviteCode: "",
+      isPrivate: false
+    })
+  }  
+
   // public getCurrentlyPlayingTracj() {
 
   // }

@@ -23,43 +23,45 @@ export class RoomComponent implements OnInit,OnDestroy,AfterViewChecked {
 
   room: Room;
   roomUsers!: RoomUser[];
-  tracks!: Track[]
-
-  currentUserProfile!: UserProfile;
-  currentRoomUser!: RoomUser;
-
-  ownerProfile!: UserProfile;
+  inviteCode: string = "";
 
   isPlay: boolean = true
-  isOwner: boolean = false
   isTrackPlaying: boolean = false
+  isPrivate: boolean = false
+  isChecked: boolean = false
 
   constructor(
-    private roomService: RoomService,
+    public roomService: RoomService,
     public chatService: ChatService,
     public playerService: PlayerService,
     public roomUserService: RoomUserService,
     public userProfileService: UserProfileService,
     ) { 
     this.room = this.roomService.returnRoom()
+    this.isPrivate = this.room.isPrivate
+    this.isChecked = this.room.isPrivate
 
+    if(this.room.inviteCode != null) {
+      this.inviteCode = this.room.inviteCode
+    } else {
+      this.inviteCode = ""
+    }
     let userSessionJson = sessionStorage.getItem('USER_PROFILE');
     if(userSessionJson != null) {
-      this.currentUserProfile = JSON.parse(userSessionJson);
+      this.roomUserService.currentUserProfile = JSON.parse(userSessionJson);
     }
     console.log(this.room)
   }
 
   ngOnInit(): void {
-    this.getCurrentRoomUserAndInitializeOwner();
-    this.getRoomTracks();
     this.chatService.openWebSocket(this.room.id);
     this.scrollToBottom();
   }
 
   ngOnDestroy(): void {
     this.chatService.closeWebSocket();
-    this.roomUserService.updateRoomUserStatus(this.currentRoomUser.id, false)
+    this.roomUserService.updateRoomUserStatus(this.roomUserService.currentRoomUser.id, false)
+    this.roomService.tracks = []
   }
 
   ngAfterViewChecked() {
@@ -67,11 +69,11 @@ export class RoomComponent implements OnInit,OnDestroy,AfterViewChecked {
   }
 
   sendMessage(sendForm: NgForm) {
-    console.log(this.currentUserProfile)
+    console.log(this.roomUserService.currentUserProfile)
     var roomMessageDTO = new RoomMessageDTO(
       this.room.id, 
-      this.currentUserProfile.id,
-      this.currentUserProfile.name,
+      this.roomUserService.currentUserProfile.id,
+      this.roomUserService.currentUserProfile.name,
       sendForm.value.message
     )
     this.chatService.sendMessage(roomMessageDTO)
@@ -106,24 +108,9 @@ export class RoomComponent implements OnInit,OnDestroy,AfterViewChecked {
     })
   }
 
-  getCurrentRoomUserAndInitializeOwner(){
-    this.roomUserService.getOrAddCurrentRoomsUser(this.room.id, this.currentUserProfile.id).subscribe(r => {
-      this.currentRoomUser = r.roomUser
-      this.initializeOwner();
-    });
-  }
-
-  getRoomTracks() {
-    this.roomService.getRoomTracks(this.room.id).subscribe(response => 
-      {
-        this.room = response.room
-        this.tracks = response.tracks
-      }
-    )
-  }
 
   play(track: Track) {
-    let trackPosition = this.tracks.indexOf(track);
+    let trackPosition = this.roomService.tracks.indexOf(track);
     this.changePlayerState(
       "play",
       this.room.spotifyUri,
@@ -131,16 +118,29 @@ export class RoomComponent implements OnInit,OnDestroy,AfterViewChecked {
     )
   }
 
-  initializeOwner() {
-    if(this.currentRoomUser.type == "CREATOR") {
-      this.isOwner = true;
-      this.ownerProfile = this.currentUserProfile
+  makeRoomPrivate(inviteCode: string) {
+    console.log(this.isChecked)
+    if(this.isChecked == true) {
+      console.log("here")
+      this.roomService.makeRoomPrivate(inviteCode).subscribe(response => {
+        this.inviteCode = response.inviteCode
+        this.isPrivate = true
+        this.isChecked = true
+      },
+      error => alert(error)
+      )
     } else {
-      this.roomUserService.getRoomUsers(this.room.id, "CREATOR").subscribe(response => this.getOwnerProfileById(response.roomUsers[0].profileId));
+      this.roomService.makeRoomPublic().subscribe(response => {
+        if(response.updated == true) {
+          console.log(response)
+          this.isPrivate = false
+          this.isChecked = false
+          this.inviteCode = ""
+        }
+      },
+      error => alert(error)
+      )
     }
-  }
-
-  getOwnerProfileById(id: string) {
-    this.userProfileService.getUserProfileById(id).subscribe(response => this.ownerProfile = response.userProfile);
+    
   }
 }

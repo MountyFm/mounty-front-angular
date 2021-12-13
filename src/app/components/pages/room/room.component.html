@@ -9,11 +9,11 @@
             <div class = "room-info">
                 <div class = "image-and-owner">
                     <div class = "img">
-                        <img *ngIf = "ownerProfile.avatarUrl != null" src = "{{ownerProfile.avatarUrl}}" width="187px" height="187px"/>
-                        <img *ngIf = "ownerProfile.avatarUrl == null" src = "{{room.imageUrl}}" width="187px" height="187px"/>
+                        <img *ngIf = "roomUserService.ownerProfile.avatarUrl != null" src = "{{roomUserService.ownerProfile.avatarUrl}}" width="187px" height="187px"/>
+                        <img *ngIf = "roomUserService.ownerProfile.avatarUrl == null" src = "{{room.imageUrl}}" width="187px" height="187px"/>
                     </div>
                     <div class = "owner">
-                        <p>Owner: @{{ownerProfile.name}}</p>
+                        <p>Owner: @{{roomUserService.ownerProfile.name}}</p>
                     </div>
                 </div>
                 <div class = "current-track">
@@ -32,9 +32,9 @@
                 <div class = "room-privacy">
                     <p>Make room private:</p>
                     <div class = "input-and-switch">
-                        <input type="text" id="invite-code" name="invite-code"><br>
+                        <input type="text" id="invite-code" name="invite-code" [(ngModel)]="inviteCode"><br>
                         <label class="switch">
-                            <input type="checkbox">
+                            <input type="checkbox" [checked]="isPrivate" [(ngModel)]="isChecked" (change)="makeRoomPrivate(inviteCode)">
                             <span class="slider round"></span>
                         </label>
                     </div>
@@ -42,8 +42,8 @@
             </div>
         </div>
         <div class="room-block" id = "track">
-            <div *ngFor="let track of tracks" id = "room-tracks" class="room-tracks">
-                <a *ngIf = "isOwner" (click) = "play(track)" style="cursor: pointer;">
+            <div *ngFor="let track of this.roomService.tracks" id = "room-tracks" class="room-tracks">
+                <a *ngIf = "roomUserService.isOwner" (click) = "play(track)" style="cursor: pointer;">
                     <div class = "track-inner">
                         <div class = "track-img">
                             <img src = "{{track.imageUrl}}"/>
@@ -53,7 +53,7 @@
                         </div>
                     </div>
                 </a>
-                <a *ngIf = "!isOwner">
+                <a *ngIf = "!roomUserService.isOwner">
                     <div class = "track-inner">
                         <div class = "track-img">
                             <img src = "{{track.imageUrl}}"/>
@@ -99,7 +99,7 @@
                 <span class="current-song-author">Mountain Guy</span>
             </div>
         </div>
-        <div *ngIf="isOwner" class="player-buttons">
+        <div *ngIf="roomUserService.isOwner" class="player-buttons">
             <a (click)='changePlayerState("prev")'><img class="player-button" src="assets/img/prev.png"/></a>
             <a *ngIf="isPlay" (click)='changePlayerState("play")'><img class="play-button" src="assets/img/play.png"/></a>
             <a *ngIf="!isPlay" (click)='changePlayerState("stop")'><img class="play-button" src="assets/img/pause.png"/></a>
