@@ -17,15 +17,13 @@
                     </div>
                 </div>
                 <div class = "current-track">
-                    <div>
-                        
-                    </div>
-                    <div>
-                        <div>
-
+                    <div *ngIf = "isTrackPlaying" class = "playing-track-info">
+                        <div class = "track-img" id = "currently-playing">
+                            <img src = "{{currentlyPlayingTrack.imageUrl}}" width= "63px" height = "63px"/>
                         </div>
-                        <div>
-
+                        <div class = "track-info" id = "currently-playing">
+                            <marquee direction = "left" scrolldelay = "150"><p>{{currentlyPlayingTrack.name}}</p></marquee>
+                            <p style="margin-top: -12px;"><span style="font-size: 10pt; color: #BFBFBF;">{{currentlyPlayingTrack.artists}}</span></p>
                         </div>
                     </div>
                 </div>

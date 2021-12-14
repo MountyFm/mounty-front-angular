@@ -1,9 +1,11 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable, ViewChild } from '@angular/core';
 import { Observable } from 'rxjs';
 import { UserProfile } from './dtos/userProfile';
+import { GetCurrentlyPlayingTrackResponse } from './dtos/track';
+import { AccessToken } from './dtos/auth';
 
-const PLAYER_URL: string = "http://localhost:8080/api/player/playerState"
+const PLAYER_URL: string = "http://localhost:8080/api/player"
 
 @Injectable({
   providedIn: 'root'
@@ -18,7 +20,8 @@ export class PlayerService {
     state: string, 
     roomId: string,
     contextUri?: string,
-    offset?: number
+    offset?: number,
+    positionMs?: number,
   ): Observable<any> {
     let userSessionJson = sessionStorage.getItem("USER_PROFILE");
 
@@ -37,7 +40,20 @@ export class PlayerService {
     if(offset != null) {
       params = params + `&offset=${offset}`
     }
+
+    if(positionMs != null) {
+      params = params + `&positionMs=${offset}`
+    }
     
-    return this.httpClient.get<any>(PLAYER_URL+params);
+    return this.httpClient.get<any>(PLAYER_URL + "/playerState" + params);
+  }
+
+  public getCurrentlyPlayingTrack(tokenKey: string): Observable<GetCurrentlyPlayingTrackResponse> {
+    
+    let url = PLAYER_URL + "/currently-playing-track"
+
+    let httpParams = new HttpParams().append('tokenKey', tokenKey)
+
+    return this.httpClient.get<any>(url, {params: httpParams});
   }
 }

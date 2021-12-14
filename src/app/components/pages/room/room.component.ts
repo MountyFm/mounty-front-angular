@@ -36,6 +36,12 @@ export class RoomComponent implements OnInit,OnDestroy,AfterViewChecked {
   isPrivate: boolean = false
   isChecked: boolean = false
 
+  minutes!: number;
+
+  currentlyPlayingTrack!: Track
+
+  polling: any;
+
   constructor(
     public roomService: RoomService,
     public chatService: ChatService,
@@ -63,12 +69,16 @@ export class RoomComponent implements OnInit,OnDestroy,AfterViewChecked {
     this.getCurrentRoomUserAndInitializeOwner();
     this.chatService.openWebSocket(this.room.id);
     this.scrollToBottom();
+    this.polling = setInterval(() => {
+      this.getCurrentlyPlayingTrack(this.ownerProfile.id);
+    }, 5000)
   }
 
   ngOnDestroy(): void {
     this.roomService.tracks = [];
     this.chatService.closeWebSocket();
     this.roomUserService.updateRoomUserStatus(this.currentRoomUser.id, false)
+    clearInterval(this.polling);
   }
 
   ngAfterViewChecked() {
@@ -97,20 +107,26 @@ export class RoomComponent implements OnInit,OnDestroy,AfterViewChecked {
     return (new Date(date)).getHours().toString() + ":" + ((new Date(date)).getMinutes()<10?'0':'') + (new Date(date)).getMinutes().toString();
   }
 
-  changePlayerState(state: string, contextUri?: string, offset?: number) {
+  changePlayerState(state: string, contextUri?: string, offset?: number, positionMs?: number) {
     console.log(state)
 
     this.playerService.changePlayerState(
       state = state,
       this.room.id,
       contextUri = contextUri,
-      offset = offset
+      offset = offset,
+      positionMs = positionMs
     ).subscribe(response => {
       if (state == "play") {
         this.isPlay = false
       } else if (state == "stop") {
         this.isPlay = true
       }
+
+      setTimeout(() => {
+        this.getCurrentlyPlayingTrack(this.ownerProfile.id);
+      }, 1200);
+      
       console.log(response);
     })
   }
@@ -138,12 +154,34 @@ export class RoomComponent implements OnInit,OnDestroy,AfterViewChecked {
       this.isOwner = true;
       this.ownerProfile = this.currentUserProfile
     } else {
-      this.roomUserService.getRoomUsers(this.room.id, "CREATOR").subscribe(response => this.getOwnerProfileById(response.roomUsers[0].profileId));
+      this.roomUserService.getRoomUsers(this.room.id, "CREATOR").subscribe(response => {
+        let owner = response.roomUsers[0]
+        this.getOwnerProfileById(owner.profileId)
+        if(owner.isActive){
+          this.getCurrentlyPlayingTrack(owner.profileId);
+          setTimeout(() => {
+            let currentTrackPosition = this.roomService.tracks.indexOf(this.currentlyPlayingTrack);
+            if(this.currentlyPlayingTrack.progressMs != undefined)
+              this.changePlayerState("play", this.room.spotifyUri, currentTrackPosition, this.currentlyPlayingTrack.progressMs + 3000)
+          }, 3000);
+        }
+      });
     }
   }
 
   getOwnerProfileById(id: string) {
-    this.userProfileService.getUserProfileById(id).subscribe(response => this.ownerProfile = response.userProfile);
+    this.userProfileService.getUserProfileById(id).subscribe(response => {
+      this.ownerProfile = response.userProfile
+    });
+  }
+
+  getCurrentlyPlayingTrack(tokenKey: string) {
+    this.playerService.getCurrentlyPlayingTrack(tokenKey).subscribe(response => {
+      if(response.track != null) {
+        this.currentlyPlayingTrack = response.track,
+        this.isTrackPlaying = true
+      }
+    })
   }
 
   makeRoomPrivate(inviteCode: string) {

@@ -4,5 +4,10 @@ export interface Track {
     spotifyUri: string
     artists: string[]
     name: string
+    progressMs?: number
     duration: number
+}
+
+export interface GetCurrentlyPlayingTrackResponse {
+    track?: Track
 }
